@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:business_empire/screen/gold.dart';
+import 'package:business_empire/screen/pot/pot.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/dialogue_box.dart';
 import 'package:business_empire/widgets/earning_container.dart';
+import 'package:business_empire/widgets/money_repository.dart';
 import 'package:business_empire/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   String greeting = 'Good Morning';
   String upiId = '${username}123456';
   bool isVisble = false;
-  int counter = 0;
+  ValueNotifier earnings = EarningsRepo.earnings;
   // inifite = inifinite value to variable
 
   var infinite = double.infinity;
@@ -28,46 +33,46 @@ class _HomePageState extends State<HomePage> {
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
         setState(() {
-          counter++; //Increment Counter
+          earnings.value++; //Increment Counter
         });
       });
     }
   }
 
   _increamentCounterFor1000() async {
-    counter = counter - 500;
+    EarningsRepo.earnings.value = EarningsRepo.earnings.value - 500;
     for (var i = 0; i < 1000; i++) {
       //Loop 100 times
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
         setState(() {
-          counter++; //Increment Counter
+          earnings.value++; //Increment Counter
         });
       });
     }
   }
 
   _increamentCounterFor2000() async {
-    counter = counter - 600;
+    earnings.value = earnings.value - 600;
     for (var i = 0; i < 2000; i++) {
       //Loop 100 times
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
         setState(() {
-          counter++; //Increment Counter
+          earnings.value++; //Increment Counter
         });
       });
     }
   }
 
   _increamentCounterFor3000() async {
-    counter = counter - 800;
+    earnings.value = earnings.value - 800;
     for (var i = 0; i < 3000; i++) {
       //Loop 100 times
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
         setState(() {
-          counter++; //Increment Counter
+          earnings.value++; //Increment earnings.value
         });
       });
     }
@@ -75,9 +80,11 @@ class _HomePageState extends State<HomePage> {
 
   _incrementCounter() {
     setState(() {
-      counter++;
+      EarningsRepo.increamentEarnings(1);
+      EarningsRepo().setEarnings();
     });
-    if (counter == 10) {
+
+    if (earnings.value == 10) {
       showDialog(
           context: context,
           builder: (context) {
@@ -93,7 +100,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool visibleRoundButton() {
-    if (counter > 10) {
+    if (earnings.value > 10) {
       setState(() {
         isVisble = true;
       });
@@ -105,11 +112,16 @@ class _HomePageState extends State<HomePage> {
     return isVisble;
   }
 
+  getEarnings() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    EarningsRepo.earnings.value = prefs.getInt('earnings') ?? 0;
+    log(prefs.getInt('earnings').toString());
+  }
+
   @override
   void initState() {
+    getEarnings();
     super.initState();
-
-    // _incrementCounter();
   }
 
   @override
@@ -157,7 +169,6 @@ class _HomePageState extends State<HomePage> {
             left: size.width * 0.05,
             child: HomeContainer(
               size: size,
-              balance: counter,
               onTap: _incrementCounter,
               upiId: upiId,
             ),
@@ -179,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                                   'Click on auto button to start earning',
                                   Colors.green,
                                   'Ok',
-                                  counter,
+                                  earnings.value,
                                   _increamentCounterFor1000,
                                   _increamentCounterFor2000,
                                   _increamentCounterFor3000,
@@ -197,7 +208,14 @@ class _HomePageState extends State<HomePage> {
                       ),
                 AppSize().width20,
                 RoundButton(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PotPage(
+                                  size: size,
+                                )));
+                  },
                   text: 'pots',
                   icon: Icons.add,
                   size: size,

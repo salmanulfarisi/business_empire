@@ -158,3 +158,52 @@ Widget autoClickDialog(
     ],
   );
 }
+
+Widget TextFormDialogue(
+    BuildContext context,
+    String title,
+    String content,
+    Color color,
+    String buttonText,
+    int index,
+    Function() onTap,
+    TextEditingController controller) {
+  return AlertDialog(
+    title: Text(title, style: TextStyle(color: color)),
+    content: SizedBox(
+      height: 100,
+      child: Column(
+        children: [
+          Text(content),
+          AppSize().height20,
+          TextFormField(
+            controller: controller,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter amount';
+              } else if (int.parse(value) >= index) {
+                return 'You don\'t have enough money';
+              }
+              return null;
+            },
+            decoration: const InputDecoration(
+              hintText: 'Enter Amount',
+            ),
+          ),
+        ],
+      ),
+    ),
+    actions: [
+      TextButton(
+        child: const Text('Cancel'),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      TextButton(
+        child: Text(buttonText),
+        onPressed: onTap,
+      ),
+    ],
+  );
+}

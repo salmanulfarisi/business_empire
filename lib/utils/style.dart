@@ -28,6 +28,10 @@ class AppStyle {
     fontSize: 14,
     color: Colors.grey,
   );
+  static const TextStyle bodyWhite = TextStyle(
+    fontSize: 14,
+    color: Colors.white,
+  );
   static const TextStyle category = TextStyle(
     fontSize: 12,
     color: Colors.grey,

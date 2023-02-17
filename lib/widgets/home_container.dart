@@ -1,18 +1,15 @@
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/button_widget.dart';
+import 'package:business_empire/widgets/money_repository.dart';
 import 'package:flutter/material.dart';
 
 class HomeContainer extends StatelessWidget {
   final Size size;
-  final int balance;
+
   final String upiId;
   final Function()? onTap;
   const HomeContainer(
-      {Key? key,
-      required this.size,
-      required this.balance,
-      this.onTap,
-      required this.upiId})
+      {Key? key, required this.size, this.onTap, required this.upiId})
       : super(key: key);
 
   @override
@@ -40,10 +37,14 @@ class HomeContainer extends StatelessWidget {
             style: AppStyle.title2,
           ),
           AppSize().height10,
-          Text(
-            '\$ $balance',
-            style: AppStyle.title2,
-          ),
+          ValueListenableBuilder(
+              valueListenable: EarningsRepo.earnings,
+              builder: (context, value, child) {
+                return Text(
+                  '₹ $value',
+                  style: AppStyle.subtitleBlack,
+                );
+              }),
           AppSize().height10,
           Container(
             width: size.width * 0.55,

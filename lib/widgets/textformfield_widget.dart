@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class TextFormWidget extends StatelessWidget {
   final TextEditingController controller;
-  const TextFormWidget({Key? key, required this.controller}) : super(key: key);
+  final String? hintText;
+  const TextFormWidget({
+    Key? key,
+    required this.controller,
+    this.hintText = 'Enter Amount',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +15,7 @@ class TextFormWidget extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        hintText: 'Enter Amount',
+        hintText: hintText,
         hintStyle: const TextStyle(
           color: Colors.grey,
         ),
