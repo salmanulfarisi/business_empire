@@ -33,7 +33,7 @@ class HomeContainer extends StatelessWidget {
       child: Column(
         children: [
           const Text(
-            'Total Balance',
+            'Total Earnings',
             style: AppStyle.title2,
           ),
           AppSize().height10,

@@ -444,6 +444,7 @@ class _PotAddMoneyState extends State<PotAddMoney> {
                                               ),
                                             ),
                                           );
+                                          Navigator.pop(context);
                                           setState(() {});
                                         },
                                       ),
