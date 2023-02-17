@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
     EarningsRepo.earnings.value = EarningsRepo.earnings.value - 500;
     for (var i = 0; i < 1000; i++) {
       //Loop 100 times
+      print(i);
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
         setState(() {
