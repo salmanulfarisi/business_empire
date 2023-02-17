@@ -1,5 +1,6 @@
 import 'package:business_empire/screen/gold.dart';
 import 'package:business_empire/utils/utils.dart';
+import 'package:business_empire/widgets/dialogue_box.dart';
 import 'package:business_empire/widgets/earning_container.dart';
 import 'package:business_empire/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +34,62 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  _increamentCounterFor1000() async {
+    counter = counter - 500;
+    for (var i = 0; i < 1000; i++) {
+      //Loop 100 times
+      await Future.delayed(const Duration(seconds: 1), () {
+        // Delay 500 milliseconds
+        setState(() {
+          counter++; //Increment Counter
+        });
+      });
+    }
+  }
+
+  _increamentCounterFor2000() async {
+    counter = counter - 600;
+    for (var i = 0; i < 2000; i++) {
+      //Loop 100 times
+      await Future.delayed(const Duration(seconds: 1), () {
+        // Delay 500 milliseconds
+        setState(() {
+          counter++; //Increment Counter
+        });
+      });
+    }
+  }
+
+  _increamentCounterFor3000() async {
+    counter = counter - 800;
+    for (var i = 0; i < 3000; i++) {
+      //Loop 100 times
+      await Future.delayed(const Duration(seconds: 1), () {
+        // Delay 500 milliseconds
+        setState(() {
+          counter++; //Increment Counter
+        });
+      });
+    }
+  }
+
   _incrementCounter() {
     setState(() {
       counter++;
     });
+    if (counter == 10) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return infoDialogeBox(
+              context,
+              'Congratulation',
+              'You can now earn by auto click. Click on auto button to start earning',
+              Colors.green,
+              'Ok',
+            );
+          });
+    }
   }
 
   bool visibleRoundButton() {
@@ -55,7 +108,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    String username = 'kunju';
+
     // _incrementCounter();
   }
 
@@ -116,7 +169,23 @@ class _HomePageState extends State<HomePage> {
               children: [
                 visibleRoundButton()
                     ? RoundButton(
-                        onTap: _incrementCounter,
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return autoClickDialog(
+                                  context,
+                                  'Auto Click',
+                                  'Click on auto button to start earning',
+                                  Colors.green,
+                                  'Ok',
+                                  counter,
+                                  _increamentCounterFor1000,
+                                  _increamentCounterFor2000,
+                                  _increamentCounterFor3000,
+                                );
+                              });
+                        },
                         text: 'auto',
                         icon: Icons.add,
                         size: size,
