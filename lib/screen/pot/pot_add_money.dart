@@ -3,18 +3,23 @@ import 'dart:developer';
 
 import 'package:business_empire/screen/pot/edit_goal.dart';
 import 'package:business_empire/utils/utils.dart';
-import 'package:business_empire/widgets/button_widget.dart';
 import 'package:business_empire/widgets/money_repository.dart';
+import 'package:business_empire/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PotAddMoney extends StatefulWidget {
   final Size size;
-
+  final String name;
+  final double interest;
+  final int index;
   const PotAddMoney({
     Key? key,
     required this.size,
+    required this.name,
+    required this.interest,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -27,6 +32,7 @@ class _PotAddMoneyState extends State<PotAddMoney> {
   bool isVisible = false;
   Timer? _timer;
   int _seconds = 24 * 60 * 60;
+
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -64,8 +70,9 @@ class _PotAddMoneyState extends State<PotAddMoney> {
   }
 
   getInterest() {
-    double interest =
-        double.parse(((addedMoney * 3.05) / 100).toStringAsFixed(2));
+    double interest = double.parse(
+        ((addedMoney * PostNameRepo.interestList[widget.index]) / 100)
+            .toStringAsFixed(2));
     log(interest.toString());
     showDialog(
       context: context,
@@ -148,6 +155,11 @@ class _PotAddMoneyState extends State<PotAddMoney> {
               LineIcons.piggyBank,
               size: 100,
             ),
+            AppSize().height20,
+            Text(
+              widget.name,
+              style: AppStyle.subtitleBlack,
+            ),
             AppSize().height10,
             Container(
               padding: EdgeInsets.all(widget.size.width * 0.02),
@@ -161,11 +173,11 @@ class _PotAddMoneyState extends State<PotAddMoney> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Text(
-                    "Money Saved",
+                    "Saved Money",
                     style: AppStyle.subtitleBlack,
                   ),
                   Text(
-                    "\u{20B9} $addedMoney",
+                    addedMoney == 0.0 ? "\u{20B9} 0" : "\u{20B9} $addedMoney",
                     style: AppStyle.subtitleBlack,
                   ),
                   Text(
@@ -181,9 +193,9 @@ class _PotAddMoneyState extends State<PotAddMoney> {
                       color: Colors.grey[500],
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        '3.05% p.a. INTERST',
+                        '${widget.interest}% p.a. INTERST',
                         style: AppStyle.bodyWhite,
                       ),
                     ),
@@ -287,7 +299,7 @@ class _PotAddMoneyState extends State<PotAddMoney> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
-                                  addedMoney += double.parse(_controller2.text);
+                                  // addedMoney += double.parse(_controller2.text);
                                   EarningsRepo.earnings.value -=
                                       int.parse(_controller2.text);
                                   setPotMoney();
@@ -444,7 +456,6 @@ class _PotAddMoneyState extends State<PotAddMoney> {
                                               ),
                                             ),
                                           );
-                                          Navigator.pop(context);
                                           setState(() {});
                                         },
                                       ),

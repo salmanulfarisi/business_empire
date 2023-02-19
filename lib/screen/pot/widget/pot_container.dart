@@ -7,8 +7,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PotContainer extends StatefulWidget {
   final Size size;
-
-  const PotContainer({Key? key, required this.size}) : super(key: key);
+  final String name;
+  final double interest;
+  final String subtitle;
+  final int index;
+  const PotContainer({
+    Key? key,
+    required this.size,
+    required this.name,
+    required this.interest,
+    required this.subtitle,
+    required this.index,
+  }) : super(key: key);
 
   @override
   State<PotContainer> createState() => _PotContainerState();
@@ -54,9 +64,9 @@ class _PotContainerState extends State<PotContainer> {
             color: Colors.white,
             size: 80,
           ),
-          const Text(
-            'pots',
-            style: TextStyle(
+          Text(
+            widget.name,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
               decoration: TextDecoration.none,
@@ -70,13 +80,13 @@ class _PotContainerState extends State<PotContainer> {
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Text(
-              '3.05% p.a. INTERST',
+            child: Text(
+              '${widget.interest} p.a. INTERST',
               style: AppStyle.body,
             ),
           ),
-          const Text(
-            'Set aside money for your daily expenses',
+          Text(
+            widget.subtitle,
             textAlign: TextAlign.center,
             style: AppStyle.bodyWhite,
           ),
@@ -89,6 +99,9 @@ class _PotContainerState extends State<PotContainer> {
                   MaterialPageRoute(
                       builder: (context) => PotAddMoney(
                             size: widget.size,
+                            name: widget.name,
+                            interest: widget.interest,
+                            index: widget.index,
                           )));
             },
           )

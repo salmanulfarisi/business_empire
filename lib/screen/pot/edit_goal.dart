@@ -1,4 +1,3 @@
-import 'package:business_empire/screen/pot/pot_add_money.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/textformfield_widget.dart';
 import 'package:business_empire/widgets/widgets.dart';
@@ -17,10 +16,7 @@ class EditGoal extends StatelessWidget {
     void setGoal() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setDouble('goal', double.parse(controller.text));
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => PotAddMoney(size: size)),
-          (route) => false);
+      Navigator.pop(context, double.parse(controller.text));
     }
 
     return Scaffold(
