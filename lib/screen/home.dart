@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:business_empire/screen/bank/bank_screen.dart';
 import 'package:business_empire/screen/gold/gold.dart';
 import 'package:business_empire/screen/pot/pot.dart';
 import 'package:business_empire/screen/profile/profile_repo.dart';
@@ -190,7 +191,12 @@ class _HomePageState extends State<HomePage> {
             left: size.width * 0.05,
             child: HomeContainer(
               size: size,
-              onTap: _incrementCounter,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BankScreen()));
+              },
               upiId: ProfileRepo.upiId.value,
             ),
           ),

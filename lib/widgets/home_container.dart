@@ -59,7 +59,7 @@ class HomeContainer extends StatelessWidget {
               children: const [
                 Icon(Icons.currency_rupee_rounded),
                 Text(
-                  'Check All Bank Balance',
+                  'Check Your Bank Balance',
                   style: AppStyle.body,
                 ),
               ],
@@ -68,7 +68,7 @@ class HomeContainer extends StatelessWidget {
           AppSize().height10,
           ButtonWidget(
             size: size,
-            text: 'Add Money',
+            text: 'Check Bank',
             onTap: onTap,
           ),
           AppSize().height20,
