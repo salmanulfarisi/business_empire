@@ -151,10 +151,10 @@ class _PotPageState extends State<PotPage> {
         backgroundColor: Colors.orange[800],
         centerTitle: true,
         title: Column(
-          children: const [
-            Text('Save in Pot'),
+          children: [
+            const Text('Save in Pot'),
             Text(
-              'Total Savings in Pot = \u{20B9}0',
+              'Total Savings in Pot = \u{20B9}${addedMoney.toStringAsFixed(2)}',
               style: AppStyle.body,
             ),
           ],
@@ -162,467 +162,483 @@ class _PotPageState extends State<PotPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PotAdContainer(
-              size: widget.size,
-            ),
-            AppSize().height20,
-            const Text(
-              'Your Pot',
-              style: AppStyle.title2,
-            ),
-            AppSize().height20,
-            Container(
-              padding: EdgeInsets.all(widget.size.width * 0.02),
-              height: widget.size.height * 0.3,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PotAdContainer(
+                size: widget.size,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text(
-                    "Saved Money",
-                    style: AppStyle.subtitleBlack,
-                  ),
-                  Text(
-                    addedMoney == 0.0 ? "\u{20B9} 0" : "\u{20B9} $addedMoney",
-                    style: AppStyle.subtitleBlack,
-                  ),
-                  Text(
-                    setgoal == 0
-                        ? "Your Goal: \u{20B9} 0"
-                        : "Your Goal: \u{20B9}$setgoal",
-                  ),
-                  const Divider(),
-                  Container(
-                    width: widget.size.width * 0.4,
-                    height: widget.size.height * 0.03,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[500],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        '2.25% p.a. INTERST',
-                        style: AppStyle.bodyWhite,
-                      ),
-                    ),
-                  ),
-                  const Text(
-                    "Add or withdraw money from your pot",
-                    style: AppStyle.subtitleBlack,
-                  ),
-                  const Divider(),
-                  Column(
-                    children: [
-                      Text(
-                        setgoal == 0
-                            ? "0% of your goal"
-                            : addedMoney == 0.0
-                                ? "Don't forget to add money to your pot"
-                                : addedMoney == setgoal
-                                    ? "You have reached your goal"
-                                    : addedMoney > setgoal
-                                        ? "You have exceeded your goal"
-                                        : addedMoney < setgoal
-                                            ? "You are \u{20B9}${setgoal - addedMoney} away from your goal"
-                                            : "${(addedMoney / setgoal) * 100}% of your goal",
-                        // : "${(addedMoney / setgoal) * 100}% of your goal",
-                        // : "${(addedMoney / setgoal) * 100}% of your goal",
-                      ),
-                      AppSize().height10,
-                      LinearProgressIndicator(
-                        value: setgoal == 0
-                            ? 0
-                            : addedMoney == 0
-                                ? 0.0
-                                : addedMoney == setgoal
-                                    ? 1.0
-                                    : addedMoney > setgoal
-                                        ? 1.0
-                                        : addedMoney < setgoal
-                                            ? addedMoney / setgoal
-                                            : addedMoney / setgoal,
-                        backgroundColor: Colors.grey[300],
-                        valueColor: AlwaysStoppedAnimation(Colors.orange[800]!),
-                      ),
-                    ],
-                  ),
-                ],
+              AppSize().height20,
+              const Text(
+                'Your Pot',
+                style: AppStyle.title2,
               ),
-            ),
-            AppSize().height20,
-            ButtonWidget(
-              width: widget.size.width * 0.2,
-              size: widget.size,
-              text: "Add money",
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text("Add Money",
-                            style: TextStyle(color: Colors.black)),
-                        content: SizedBox(
-                          height: widget.size.height * 0.15,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Add money to your pot",
-                                style: AppStyle.bodyGrey,
-                              ),
-                              AppSize().height20,
-                              Form(
-                                key: _formKey,
-                                child: TextFormField(
-                                  controller: _controller2,
-                                  keyboardType: TextInputType.number,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter amount';
-                                    } else if (int.parse(value) >=
-                                        EarningsRepo.earnings.value) {
-                                      return 'You don\'t have enough money';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enter Amount',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+              AppSize().height20,
+              Container(
+                padding: EdgeInsets.all(widget.size.width * 0.02),
+                height: widget.size.height * 0.3,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text(
+                      "Saved Money",
+                      style: AppStyle.subtitleBlack,
+                    ),
+                    Text(
+                      addedMoney == 0.0
+                          ? "\u{20B9} 0"
+                          : "\u{20B9}${addedMoney.toStringAsFixed(2)}",
+                      style: AppStyle.subtitleBlack,
+                    ),
+                    Text(
+                      setgoal == 0
+                          ? "Your Goal: \u{20B9} 0"
+                          : "Your Goal: \u{20B9}$setgoal",
+                    ),
+                    const Divider(),
+                    Container(
+                      width: widget.size.width * 0.4,
+                      height: widget.size.height * 0.03,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[500],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          '2.25% p.a. INTERST',
+                          style: AppStyle.bodyWhite,
                         ),
-                        actions: [
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                          TextButton(
-                            child: const Text("Add"),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  addedMoney += double.parse(_controller2.text);
-                                  EarningsRepo.earnings.value -=
-                                      int.parse(_controller2.text);
-                                  setPotMoney();
-                                  EarningsRepo().setEarnings();
-                                });
-                                Navigator.pop(context);
-                              }
-                              // Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      );
-                    });
-              },
-            ),
-            AppSize().height20,
-            isVisible
-                ? Visibility(
-                    visible: isVisible,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      ),
+                    ),
+                    const Text(
+                      "Add or withdraw money from your pot",
+                      style: AppStyle.subtitleBlack,
+                    ),
+                    const Divider(),
+                    Column(
                       children: [
-                        TextButton(
-                          onPressed: () {
-                            getInterest();
-                          },
-                          child: const Text("Get Interest"),
+                        Text(
+                          setgoal == 0
+                              ? "0% of your goal"
+                              : addedMoney == 0.0
+                                  ? "Don't forget to add money to your pot"
+                                  : addedMoney == setgoal
+                                      ? "You have reached your goal"
+                                      : addedMoney > setgoal
+                                          ? "You have exceeded your goal"
+                                          : addedMoney < setgoal
+                                              ? "You are \u{20B9}${(setgoal - addedMoney).toStringAsFixed(2)} away from your goal"
+                                              : "${(addedMoney / setgoal) * 100}% of your goal",
+                          // : "${(addedMoney / setgoal) * 100}% of your goal",
+                          // : "${(addedMoney / setgoal) * 100}% of your goal",
                         ),
-                        TextButton(
-                          onPressed: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: const CircleAvatar(
-                                          backgroundColor: Colors.red,
-                                          child: Icon(LineIcons.minus),
-                                        ),
-                                        title: const Text('Withdraw money'),
-                                        subtitle: const Text(
-                                            'Withdraw money from your pot'),
-                                        onTap: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  title: const Text(
-                                                      "Withdraw Money",
-                                                      style: TextStyle(
-                                                          color: Colors.black)),
-                                                  content: SizedBox(
-                                                    height: widget.size.height *
-                                                        0.15,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          "Withdraw money from your pot",
-                                                          style:
-                                                              AppStyle.bodyGrey,
-                                                        ),
-                                                        AppSize().height20,
-                                                        Form(
-                                                          key: _formKey,
-                                                          child: TextFormField(
-                                                            controller:
-                                                                _controller,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            validator: (value) {
-                                                              if (value!
-                                                                  .isEmpty) {
-                                                                return 'Please enter amount';
-                                                              } else if (double
-                                                                      .parse(
-                                                                          value) >=
-                                                                  addedMoney) {
-                                                                return 'You don\'t have enough money';
-                                                              }
-                                                              return null;
-                                                            },
-                                                            decoration:
-                                                                const InputDecoration(
-                                                              hintText:
-                                                                  'Enter Amount',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  actions: [
-                                                    TextButton(
-                                                      child:
-                                                          const Text('Cancel'),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                    TextButton(
-                                                      child: const Text(
-                                                          "Withdraw"),
-                                                      onPressed: () {
-                                                        if (_formKey
-                                                            .currentState!
-                                                            .validate()) {
-                                                          setState(() {
-                                                            addedMoney -=
-                                                                int.parse(
-                                                                    _controller
-                                                                        .text);
-                                                            EarningsRepo
-                                                                    .earnings
-                                                                    .value +=
-                                                                int.parse(
-                                                                    _controller
-                                                                        .text);
-                                                            setPotMoney();
-                                                            EarningsRepo()
-                                                                .setEarnings();
-                                                          });
-                                                          Navigator.pop(
-                                                              context);
-                                                        }
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              });
-                                        },
-                                      ),
-                                      ListTile(
-                                        leading: const CircleAvatar(
-                                          backgroundColor: Colors.green,
-                                          child: Icon(LineIcons.edit),
-                                        ),
-                                        title: const Text('Edit Your Goal'),
-                                        subtitle: const Text(
-                                            'Change your goal amount'),
-                                        onTap: () async {
-                                          setgoal = await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => EditGoal(
-                                                size: widget.size,
-                                                controller: _controller,
-                                              ),
-                                            ),
-                                          );
-                                          setState(() {});
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                });
-                          },
-                          child: const Text("More"),
-                        )
+                        AppSize().height10,
+                        LinearProgressIndicator(
+                          value: setgoal == 0
+                              ? 0
+                              : addedMoney == 0
+                                  ? 0.0
+                                  : addedMoney == setgoal
+                                      ? 1.0
+                                      : addedMoney > setgoal
+                                          ? 1.0
+                                          : addedMoney < setgoal
+                                              ? addedMoney / setgoal
+                                              : addedMoney / setgoal,
+                          backgroundColor: Colors.grey[300],
+                          valueColor:
+                              AlwaysStoppedAnimation(Colors.orange[800]!),
+                        ),
                       ],
                     ),
-                  )
-                : TextButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                ListTile(
-                                  leading: const CircleAvatar(
-                                    backgroundColor: Colors.red,
-                                    child: Icon(LineIcons.minus),
-                                  ),
-                                  title: const Text('Withdraw money'),
-                                  subtitle: const Text(
-                                      'Withdraw money from your pot'),
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: const Text("Withdraw Money",
-                                                style: TextStyle(
-                                                    color: Colors.black)),
-                                            content: SizedBox(
-                                              height: widget.size.height * 0.15,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text(
-                                                    "Withdraw money from your pot",
-                                                    style: AppStyle.bodyGrey,
-                                                  ),
-                                                  AppSize().height20,
-                                                  Form(
-                                                    key: _formKey,
-                                                    child: TextFormField(
-                                                      controller: _controller,
-                                                      keyboardType:
-                                                          TextInputType.number,
-                                                      validator: (value) {
-                                                        if (value!.isEmpty) {
-                                                          return 'Please enter amount';
-                                                        } else if (int.parse(
-                                                                value) >=
-                                                            addedMoney) {
-                                                          return 'You don\'t have enough money';
-                                                        }
-                                                        return null;
-                                                      },
-                                                      decoration:
-                                                          const InputDecoration(
-                                                        hintText:
-                                                            'Enter Amount',
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                child: const Text('Cancel'),
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              TextButton(
-                                                child: const Text("Withdraw"),
-                                                onPressed: () {
-                                                  if (_formKey.currentState!
-                                                      .validate()) {
-                                                    setState(() {
-                                                      addedMoney -= int.parse(
-                                                          _controller.text);
-                                                      EarningsRepo
-                                                              .earnings.value +=
-                                                          int.parse(
-                                                              _controller.text);
-                                                      setPotMoney();
-                                                      EarningsRepo()
-                                                          .setEarnings();
-                                                    });
-                                                    Navigator.pop(context);
-                                                  }
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  },
+                  ],
+                ),
+              ),
+              AppSize().height20,
+              ButtonWidget(
+                width: widget.size.width * 0.2,
+                size: widget.size,
+                text: "Add money",
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text("Add Money",
+                              style: TextStyle(color: Colors.black)),
+                          content: SizedBox(
+                            height: widget.size.height * 0.15,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Add money to your pot",
+                                  style: AppStyle.bodyGrey,
                                 ),
-                                ListTile(
-                                  leading: const CircleAvatar(
-                                    backgroundColor: Colors.green,
-                                    child: Icon(LineIcons.edit),
+                                AppSize().height20,
+                                Form(
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    controller: _controller2,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter amount';
+                                      } else if (double.parse(value) >=
+                                          EarningsRepo.earnings.value) {
+                                        return 'You don\'t have enough money';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: const InputDecoration(
+                                      hintText: 'Enter Amount',
+                                    ),
                                   ),
-                                  title: const Text('Edit Your Goal'),
-                                  subtitle:
-                                      const Text('Change your goal amount'),
-                                  onTap: () async {
-                                    setgoal = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EditGoal(
-                                          size: widget.size,
-                                          controller: _controller,
-                                        ),
-                                      ),
-                                    );
-                                    setState(() {});
-                                  },
                                 ),
                               ],
-                            );
-                          });
-                    },
-                    child: const Text("More"),
-                  ),
-            // SizedBox(
-            //   height: size.height * 0.4,
-            //   child: ListView.separated(
-            //     scrollDirection: Axis.horizontal,
-            //     physics: const BouncingScrollPhysics(),
-            //     itemBuilder: (context, index) {
-            //       return PotContainer(
-            //         size: size,
-            //         name: PostNameRepo.postNameList.value[index],
-            //         interest: PostNameRepo.interestList[index],
-            //         subtitle: PostNameRepo.subtitleList[index],
-            //         index: index,
-            //       );
-            //     },
-            //     separatorBuilder: (context, index) {
-            //       return AppSize().width20;
-            //     },
-            //     itemCount: 3,
-            //   ),
-            // )
-          ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            TextButton(
+                              child: const Text("Add"),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    addedMoney +=
+                                        double.parse(_controller2.text);
+                                    EarningsRepo.earnings.value -=
+                                        double.parse(_controller2.text);
+                                    setPotMoney();
+                                    EarningsRepo().setEarnings();
+                                  });
+                                  Navigator.pop(context);
+                                }
+                                // Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                },
+              ),
+              AppSize().height20,
+              isVisible
+                  ? Visibility(
+                      visible: isVisible,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              getInterest();
+                            },
+                            child: const Text("Get Interest"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        ListTile(
+                                          leading: const CircleAvatar(
+                                            backgroundColor: Colors.red,
+                                            child: Icon(LineIcons.minus),
+                                          ),
+                                          title: const Text('Withdraw money'),
+                                          subtitle: const Text(
+                                              'Withdraw money from your pot'),
+                                          onTap: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                        "Withdraw Money",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black)),
+                                                    content: SizedBox(
+                                                      height:
+                                                          widget.size.height *
+                                                              0.15,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          const Text(
+                                                            "Withdraw money from your pot",
+                                                            style: AppStyle
+                                                                .bodyGrey,
+                                                          ),
+                                                          AppSize().height20,
+                                                          Form(
+                                                            key: _formKey,
+                                                            child:
+                                                                TextFormField(
+                                                              controller:
+                                                                  _controller,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return 'Please enter amount';
+                                                                } else if (double
+                                                                        .parse(
+                                                                            value) >=
+                                                                    addedMoney) {
+                                                                  return 'You don\'t have enough money';
+                                                                }
+                                                                return null;
+                                                              },
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                hintText:
+                                                                    'Enter Amount',
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        child: const Text(
+                                                            'Cancel'),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                      TextButton(
+                                                        child: const Text(
+                                                            "Withdraw"),
+                                                        onPressed: () {
+                                                          if (_formKey
+                                                              .currentState!
+                                                              .validate()) {
+                                                            setState(() {
+                                                              addedMoney -=
+                                                                  int.parse(
+                                                                      _controller
+                                                                          .text);
+                                                              EarningsRepo
+                                                                      .earnings
+                                                                      .value +=
+                                                                  int.parse(
+                                                                      _controller
+                                                                          .text);
+                                                              setPotMoney();
+                                                              EarningsRepo()
+                                                                  .setEarnings();
+                                                            });
+                                                            Navigator.pop(
+                                                                context);
+                                                          }
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                        ),
+                                        ListTile(
+                                          leading: const CircleAvatar(
+                                            backgroundColor: Colors.green,
+                                            child: Icon(LineIcons.edit),
+                                          ),
+                                          title: const Text('Edit Your Goal'),
+                                          subtitle: const Text(
+                                              'Change your goal amount'),
+                                          onTap: () async {
+                                            setgoal = await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => EditGoal(
+                                                  size: widget.size,
+                                                  controller: _controller,
+                                                ),
+                                              ),
+                                            );
+                                            setState(() {});
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: const Text("More"),
+                          )
+                        ],
+                      ),
+                    )
+                  : TextButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: const CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      child: Icon(LineIcons.minus),
+                                    ),
+                                    title: const Text('Withdraw money'),
+                                    subtitle: const Text(
+                                        'Withdraw money from your pot'),
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  "Withdraw Money",
+                                                  style: TextStyle(
+                                                      color: Colors.black)),
+                                              content: SizedBox(
+                                                height:
+                                                    widget.size.height * 0.15,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text(
+                                                      "Withdraw money from your pot",
+                                                      style: AppStyle.bodyGrey,
+                                                    ),
+                                                    AppSize().height20,
+                                                    Form(
+                                                      key: _formKey,
+                                                      child: TextFormField(
+                                                        controller: _controller,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        validator: (value) {
+                                                          if (value!.isEmpty) {
+                                                            return 'Please enter amount';
+                                                          } else if (int.parse(
+                                                                  value) >=
+                                                              addedMoney) {
+                                                            return 'You don\'t have enough money';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        decoration:
+                                                            const InputDecoration(
+                                                          hintText:
+                                                              'Enter Amount',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  child: const Text('Cancel'),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text("Withdraw"),
+                                                  onPressed: () {
+                                                    if (_formKey.currentState!
+                                                        .validate()) {
+                                                      setState(() {
+                                                        addedMoney -= int.parse(
+                                                            _controller.text);
+                                                        EarningsRepo.earnings
+                                                                .value +=
+                                                            int.parse(
+                                                                _controller
+                                                                    .text);
+                                                        setPotMoney();
+                                                        EarningsRepo()
+                                                            .setEarnings();
+                                                      });
+                                                      Navigator.pop(context);
+                                                    }
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                  ),
+                                  ListTile(
+                                    leading: const CircleAvatar(
+                                      backgroundColor: Colors.green,
+                                      child: Icon(LineIcons.edit),
+                                    ),
+                                    title: const Text('Edit Your Goal'),
+                                    subtitle:
+                                        const Text('Change your goal amount'),
+                                    onTap: () async {
+                                      setgoal = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EditGoal(
+                                            size: widget.size,
+                                            controller: _controller,
+                                          ),
+                                        ),
+                                      );
+                                      setState(() {});
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      child: const Text("More"),
+                    ),
+              // SizedBox(
+              //   height: size.height * 0.4,
+              //   child: ListView.separated(
+              //     scrollDirection: Axis.horizontal,
+              //     physics: const BouncingScrollPhysics(),
+              //     itemBuilder: (context, index) {
+              //       return PotContainer(
+              //         size: size,
+              //         name: PostNameRepo.postNameList.value[index],
+              //         interest: PostNameRepo.interestList[index],
+              //         subtitle: PostNameRepo.subtitleList[index],
+              //         index: index,
+              //       );
+              //     },
+              //     separatorBuilder: (context, index) {
+              //       return AppSize().width20;
+              //     },
+              //     itemCount: 3,
+              //   ),
+              // )
+            ],
+          ),
         ),
       ),
     );

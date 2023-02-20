@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const String username = 'Salman';
   String greeting = 'Good Morning';
-  String upiId = '${username}123456';
+  String upiId = '${username}123456@upi';
   bool isVisble = false;
   ValueNotifier earnings = EarningsRepo.earnings;
   // inifite = inifinite value to variable
@@ -115,8 +115,9 @@ class _HomePageState extends State<HomePage> {
 
   getEarnings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    EarningsRepo.earnings.value = prefs.getInt('earnings') ?? 0;
-    log(prefs.getInt('earnings').toString());
+    EarningsRepo.earnings.value = prefs.getDouble('earnings') ?? 0.0;
+    // EarningsRepo.earnings.value = prefs.getDouble('earnings') ?? 0.0;
+    log(prefs.getDouble('earnings').toString());
   }
 
   @override

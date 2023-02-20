@@ -2,6 +2,7 @@ import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/button_widget.dart';
 import 'package:business_empire/widgets/money_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeContainer extends StatelessWidget {
   final Size size;
@@ -71,9 +72,28 @@ class HomeContainer extends StatelessWidget {
             onTap: onTap,
           ),
           AppSize().height20,
-          Text(
-            "Your Upi ID: $upiId@upi",
-            style: AppStyle.bodyGrey,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Your Upi ID: $upiId",
+                style: AppStyle.bodyGrey,
+              ),
+              AppSize().width10,
+              GestureDetector(
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: upiId));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('UPI ID Copied'),
+                    ),
+                  );
+                },
+                child: const Icon(
+                  Icons.copy,
+                ),
+              )
+            ],
           )
         ],
       ),
