@@ -4,11 +4,13 @@ import 'package:business_empire/screen/gold/gold.dart';
 import 'package:business_empire/screen/pot/pot.dart';
 import 'package:business_empire/screen/profile/profile_repo.dart';
 import 'package:business_empire/utils/utils.dart';
+import 'package:business_empire/widgets/custom_drawer.dart';
 import 'package:business_empire/widgets/dialogue_box.dart';
 import 'package:business_empire/widgets/earning_container.dart';
 import 'package:business_empire/widgets/money_repository.dart';
 import 'package:business_empire/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   // String upiId = '${username}123456@upi';
   bool isVisble = false;
   ValueNotifier earnings = EarningsRepo.earnings;
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   // inifite = inifinite value to variable
 
   var infinite = double.infinity;
@@ -128,7 +131,7 @@ class _HomePageState extends State<HomePage> {
     getEarnings();
     ProfileRepo().getUserName();
     EarningsRepo.getTotalClick();
-
+    ProfileRepo().getCardDetails();
     super.initState();
   }
 
@@ -136,6 +139,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      key: _key,
+      drawer: const CustonDrawer(),
       body: Stack(
         children: [
           Column(
@@ -153,7 +158,15 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.menu),
+                  IconButton(
+                    onPressed: () {
+                      _key.currentState!.openDrawer();
+                    },
+                    icon: const Icon(
+                      LineIcons.bars,
+                      color: Colors.white,
+                    ),
+                  ),
                   AppSize().width20,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
