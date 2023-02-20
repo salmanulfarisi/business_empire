@@ -137,10 +137,14 @@ class PlayerContainer extends StatelessWidget {
                       'Total Expenses',
                       style: AppStyle.title2,
                     ),
-                    Text(
-                      "₹${EarningsRepo.expanses.value}",
-                      style: AppStyle.subtitleBlack,
-                    ),
+                    ValueListenableBuilder(
+                        valueListenable: EarningsRepo.expanses,
+                        builder: (context, double value, child) {
+                          return Text(
+                            "₹$value",
+                            style: AppStyle.subtitleBlack,
+                          );
+                        }),
                   ],
                 ),
               ),

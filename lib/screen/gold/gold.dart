@@ -153,6 +153,9 @@ class _GoldPageState extends State<GoldPage> {
                                       double.parse(_controller.text));
                                   EarningsRepo().setEarnings();
                                   GoldRepo().setGold();
+                                  EarningsRepo.increamentExpanses(
+                                      double.parse(_controller.text));
+                                  EarningsRepo().setExp();
                                   _controller.clear();
                                 });
 

@@ -1,6 +1,7 @@
 import 'package:business_empire/screen/gold/gold_repo.dart';
 import 'package:business_empire/screen/pot/pot_repo.dart';
 import 'package:business_empire/screen/profile/widgets/player_container.dart';
+import 'package:business_empire/widgets/money_repository.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -16,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     GoldRepo().getGold();
     PotRepo().getPotMoney();
+    EarningsRepo().getExp();
   }
 
   @override
