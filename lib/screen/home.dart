@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:business_empire/screen/gold/gold.dart';
 import 'package:business_empire/screen/pot/pot.dart';
+import 'package:business_empire/screen/profile/profile_repo.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/dialogue_box.dart';
 import 'package:business_empire/widgets/earning_container.dart';
@@ -18,10 +19,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const String username = 'Salman';
+  // static const String username = 'Salman';
   int clicks = 0;
   String greeting = 'Good Morning';
-  String upiId = '${username}123456@upi';
+  // String upiId = '${username}123456@upi';
   bool isVisble = false;
   ValueNotifier earnings = EarningsRepo.earnings;
   // inifite = inifinite value to variable
@@ -125,6 +126,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     getEarnings();
+    ProfileRepo().getUserName();
     EarningsRepo.getTotalClick();
 
     super.initState();
@@ -156,8 +158,8 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Hello,$username',
+                      Text(
+                        'Hello,${ProfileRepo.userName.value}',
                         style: AppStyle.title,
                       ),
                       Text(
@@ -176,7 +178,7 @@ class _HomePageState extends State<HomePage> {
             child: HomeContainer(
               size: size,
               onTap: _incrementCounter,
-              upiId: upiId,
+              upiId: ProfileRepo.upiId.value,
             ),
           ),
           Positioned(

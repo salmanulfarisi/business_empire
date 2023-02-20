@@ -1,5 +1,6 @@
 import 'package:business_empire/screen/gold/gold_repo.dart';
 import 'package:business_empire/screen/pot/pot_repo.dart';
+import 'package:business_empire/screen/profile/profile_repo.dart';
 import 'package:business_empire/utils/size.dart';
 import 'package:business_empire/utils/style.dart';
 import 'package:business_empire/widgets/money_repository.dart';
@@ -12,7 +13,6 @@ class PlayerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    String UpiId = 'salman123456@upi';
     return Container(
       padding: const EdgeInsets.all(16),
       width: double.infinity,
@@ -42,25 +42,25 @@ class PlayerContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Name: ',
                         style: AppStyle.body,
                       ),
                       Text(
-                        'Salman',
+                        ProfileRepo.userName.value,
                         style: AppStyle.body,
                       ),
                     ],
                   ),
                   Row(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'E-mail: ',
                         style: AppStyle.body,
                       ),
                       Text(
-                        'salman@gmail.cm',
+                        ProfileRepo.email.value,
                         style: AppStyle.body,
                       ),
                     ],
@@ -72,13 +72,14 @@ class PlayerContainer extends StatelessWidget {
                         style: AppStyle.body,
                       ),
                       Text(
-                        UpiId,
+                        ProfileRepo.upiId.value,
                         style: AppStyle.body,
                       ),
                       AppSize().width10,
                       GestureDetector(
                         onTap: () {
-                          Clipboard.setData(ClipboardData(text: UpiId));
+                          Clipboard.setData(
+                              ClipboardData(text: ProfileRepo.upiId.value));
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('UPI ID Copied'),
