@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:business_empire/screen/pot/edit_goal.dart';
+import 'package:business_empire/screen/pot/pot_repo.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/money_repository.dart';
 import 'package:business_empire/widgets/pot_ad_container.dart';
@@ -24,7 +25,7 @@ class PotPage extends StatefulWidget {
 
 class _PotPageState extends State<PotPage> {
   double setgoal = 0;
-  double addedMoney = 0;
+  // double addedMoney = 0;
   bool isVisible = false;
   // Timer? _timer;
   // final int _seconds = 24 * 60 * 60;
@@ -39,7 +40,7 @@ class _PotPageState extends State<PotPage> {
     getPotMoney();
     // getTimer();
     // _startTimer();
-    Future.delayed(const Duration(hours: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         isVisible = true;
       });
@@ -53,13 +54,14 @@ class _PotPageState extends State<PotPage> {
 
   setPotMoney() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setDouble('potMoney', addedMoney);
+    prefs.setDouble('potMoney', PotRepo.potMoney.value);
   }
 
   getPotMoney() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      addedMoney = prefs.getDouble('potMoney') ?? 0;
+      PotRepo.potMoney.value = prefs.getDouble('potMoney') ?? 0;
+      EarningsRepo.totalPotMoney.value = PotRepo.potMoney.value;
     });
   }
 
@@ -71,8 +73,8 @@ class _PotPageState extends State<PotPage> {
   }
 
   getInterest() {
-    double interest =
-        double.parse(((addedMoney * 2.25) / 100).toStringAsFixed(2));
+    double interest = double.parse(
+        ((PotRepo.potMoney.value * 2.25) / 100).toStringAsFixed(2));
     log(interest.toString());
     showDialog(
       context: context,
@@ -85,7 +87,7 @@ class _PotPageState extends State<PotPage> {
             onPressed: () {
               Future.delayed(const Duration(seconds: 1), () {
                 setState(() {
-                  addedMoney = addedMoney + interest;
+                  PotRepo.potMoney.value = PotRepo.potMoney.value + interest;
                   setPotMoney();
                   // _startTimer();
                   Navigator.pop(context);
@@ -154,7 +156,7 @@ class _PotPageState extends State<PotPage> {
           children: [
             const Text('Save in Pot'),
             Text(
-              'Total Savings in Pot = \u{20B9}${addedMoney.toStringAsFixed(2)}',
+              'Total Savings in Pot = \u{20B9}${PotRepo.potMoney.value.toStringAsFixed(2)}',
               style: AppStyle.body,
             ),
           ],
@@ -191,9 +193,9 @@ class _PotPageState extends State<PotPage> {
                       style: AppStyle.subtitleBlack,
                     ),
                     Text(
-                      addedMoney == 0.0
+                      PotRepo.potMoney.value == 0.0
                           ? "\u{20B9} 0"
-                          : "\u{20B9}${addedMoney.toStringAsFixed(2)}",
+                          : "\u{20B9}${PotRepo.potMoney.value.toStringAsFixed(2)}",
                       style: AppStyle.subtitleBlack,
                     ),
                     Text(
@@ -226,15 +228,15 @@ class _PotPageState extends State<PotPage> {
                         Text(
                           setgoal == 0
                               ? "0% of your goal"
-                              : addedMoney == 0.0
+                              : PotRepo.potMoney.value == 0.0
                                   ? "Don't forget to add money to your pot"
-                                  : addedMoney == setgoal
+                                  : PotRepo.potMoney.value == setgoal
                                       ? "You have reached your goal"
-                                      : addedMoney > setgoal
+                                      : PotRepo.potMoney.value > setgoal
                                           ? "You have exceeded your goal"
-                                          : addedMoney < setgoal
-                                              ? "You are \u{20B9}${(setgoal - addedMoney).toStringAsFixed(2)} away from your goal"
-                                              : "${(addedMoney / setgoal) * 100}% of your goal",
+                                          : PotRepo.potMoney.value < setgoal
+                                              ? "You are \u{20B9}${(setgoal - PotRepo.potMoney.value).toStringAsFixed(2)} away from your goal"
+                                              : "${(PotRepo.potMoney.value / setgoal) * 100}% of your goal",
                           // : "${(addedMoney / setgoal) * 100}% of your goal",
                           // : "${(addedMoney / setgoal) * 100}% of your goal",
                         ),
@@ -242,15 +244,16 @@ class _PotPageState extends State<PotPage> {
                         LinearProgressIndicator(
                           value: setgoal == 0
                               ? 0
-                              : addedMoney == 0
+                              : PotRepo.potMoney.value == 0
                                   ? 0.0
-                                  : addedMoney == setgoal
+                                  : PotRepo.potMoney.value == setgoal
                                       ? 1.0
-                                      : addedMoney > setgoal
+                                      : PotRepo.potMoney.value > setgoal
                                           ? 1.0
-                                          : addedMoney < setgoal
-                                              ? addedMoney / setgoal
-                                              : addedMoney / setgoal,
+                                          : PotRepo.potMoney.value < setgoal
+                                              ? PotRepo.potMoney.value / setgoal
+                                              : PotRepo.potMoney.value /
+                                                  setgoal,
                           backgroundColor: Colors.grey[300],
                           valueColor:
                               AlwaysStoppedAnimation(Colors.orange[800]!),
@@ -316,12 +319,16 @@ class _PotPageState extends State<PotPage> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
-                                    addedMoney +=
+                                    PotRepo.potMoney.value +=
                                         double.parse(_controller2.text);
                                     EarningsRepo.earnings.value -=
                                         double.parse(_controller2.text);
                                     setPotMoney();
                                     EarningsRepo().setEarnings();
+                                    EarningsRepo.increamentExpanses(
+                                        double.parse(_controller2.text));
+                                    EarningsRepo().setExp();
+                                    _controller2.clear();
                                   });
                                   Navigator.pop(context);
                                 }
@@ -404,7 +411,9 @@ class _PotPageState extends State<PotPage> {
                                                                 } else if (double
                                                                         .parse(
                                                                             value) >=
-                                                                    addedMoney) {
+                                                                    PotRepo
+                                                                        .potMoney
+                                                                        .value) {
                                                                   return 'You don\'t have enough money';
                                                                 }
                                                                 return null;
@@ -436,7 +445,8 @@ class _PotPageState extends State<PotPage> {
                                                               .currentState!
                                                               .validate()) {
                                                             setState(() {
-                                                              addedMoney -=
+                                                              PotRepo.potMoney
+                                                                      .value -=
                                                                   int.parse(
                                                                       _controller
                                                                           .text);
@@ -541,7 +551,8 @@ class _PotPageState extends State<PotPage> {
                                                             return 'Please enter amount';
                                                           } else if (int.parse(
                                                                   value) >=
-                                                              addedMoney) {
+                                                              PotRepo.potMoney
+                                                                  .value) {
                                                             return 'You don\'t have enough money';
                                                           }
                                                           return null;
@@ -569,8 +580,11 @@ class _PotPageState extends State<PotPage> {
                                                     if (_formKey.currentState!
                                                         .validate()) {
                                                       setState(() {
-                                                        addedMoney -= int.parse(
-                                                            _controller.text);
+                                                        PotRepo.potMoney
+                                                                .value -=
+                                                            int.parse(
+                                                                _controller
+                                                                    .text);
                                                         EarningsRepo.earnings
                                                                 .value +=
                                                             int.parse(

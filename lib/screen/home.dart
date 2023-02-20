@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static const String username = 'Salman';
+  int clicks = 0;
   String greeting = 'Good Morning';
   String upiId = '${username}123456@upi';
   bool isVisble = false;
@@ -83,6 +84,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       EarningsRepo.increamentEarnings(1);
       EarningsRepo().setEarnings();
+      EarningsRepo.increamentClick();
     });
 
     if (earnings.value == 10) {
@@ -123,6 +125,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     getEarnings();
+    EarningsRepo.getTotalClick();
+
     super.initState();
   }
 

@@ -1,4 +1,5 @@
 import 'package:business_empire/screen/home.dart';
+import 'package:business_empire/screen/profile/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -23,7 +24,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
     const Text('Business'),
     const Text('School'),
     const Text('profile'),
-    const Text('Business'),
+    const ProfilePage(),
   ];
 
   @override
