@@ -76,21 +76,42 @@ class _BankScreenState extends State<BankScreen> {
                           Row(
                             children: [
                               isVisble
-                                  ? ValueListenableBuilder(
-                                      valueListenable: ProfileRepo.cardNumber,
-                                      builder: (context, value, child) {
-                                        return Text(
-                                          value.toString(),
+                                  ? ProfileRepo.cardNumber.value.isEmpty
+                                      ? const Text(
+                                          "000 0000 0000 0000",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      : ValueListenableBuilder(
+                                          valueListenable:
+                                              ProfileRepo.cardNumber,
+                                          builder: (context, value, child) {
+                                            return Text(
+                                              value.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            );
+                                          })
+                                  // ValueListenableBuilder(
+                                  //     valueListenable: ProfileRepo.cardNumber,
+                                  //     builder: (context, value, child) {
+                                  //       return Text(
+                                  //         value.toString(),
+                                  //         style: const TextStyle(
+                                  //             color: Colors.white),
+                                  //       );
+                                  //     })
+                                  : ProfileRepo.cardNumber.value.isEmpty
+                                      ? const Text(
+                                          "*******",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      : Text(
+                                          ProfileRepo.cardNumber.value
+                                              .replaceRange(
+                                                  0, 11, "************"),
                                           style: const TextStyle(
                                               color: Colors.white),
-                                        );
-                                      })
-                                  : Text(
-                                      ProfileRepo.cardNumber.value
-                                          .replaceRange(0, 11, "************"),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
+                                        ),
                               AppSize().width20,
                               GestureDetector(
                                 onTap: () {
@@ -296,6 +317,7 @@ class _BankScreenState extends State<BankScreen> {
                                               double.parse(
                                                   _amountController.text));
                                           EarningsRepo().setExp();
+                                          Navigator.pop(context);
                                         }
                                       },
                                     ),

@@ -30,7 +30,7 @@ Widget autoClickDialog(
     String content,
     Color color,
     String buttonText,
-    int index,
+    double index,
     Function() onTap1,
     Function() onTap2,
     Function() onTap3) {

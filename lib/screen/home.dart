@@ -46,41 +46,53 @@ class _HomePageState extends State<HomePage> {
   }
 
   _increamentCounterFor1000() async {
-    EarningsRepo.earnings.value = EarningsRepo.earnings.value - 500;
+    // EarningsRepo.earnings.value = EarningsRepo.earnings.value - 500;
+    EarningsRepo.decreamentEarnings(500.0);
+    EarningsRepo().setEarnings();
+    EarningsRepo.increamentExpanses(500.0);
+    EarningsRepo().setExp();
+
     for (var i = 0; i < 1000; i++) {
       //Loop 100 times
       print(i);
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
-        setState(() {
-          earnings.value++; //Increment Counter
-        });
+
+        earnings.value++; //Increment Counter
+        EarningsRepo().setEarnings();
       });
     }
   }
 
   _increamentCounterFor2000() async {
-    earnings.value = earnings.value - 600;
+    EarningsRepo.decreamentEarnings(600.0);
+    EarningsRepo().setEarnings();
+    EarningsRepo.increamentExpanses(600.0);
+    EarningsRepo().setExp();
     for (var i = 0; i < 2000; i++) {
       //Loop 100 times
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
-        setState(() {
-          earnings.value++; //Increment Counter
-        });
+
+        earnings.value++; //Increment Counter
+        EarningsRepo().setEarnings();
       });
     }
   }
 
   _increamentCounterFor3000() async {
+    EarningsRepo.decreamentEarnings(800.0);
+    EarningsRepo().setEarnings();
+    EarningsRepo.increamentExpanses(800.0);
+    EarningsRepo().setExp();
     earnings.value = earnings.value - 800;
     for (var i = 0; i < 3000; i++) {
       //Loop 100 times
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
-        setState(() {
-          earnings.value++; //Increment earnings.value
-        });
+
+        earnings.value++; //Increment earnings.value
+        EarningsRepo().setEarnings();
       });
     }
   }
