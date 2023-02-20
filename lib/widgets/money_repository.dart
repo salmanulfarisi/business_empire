@@ -4,8 +4,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class EarningsRepo {
   static ValueNotifier<double> earnings = ValueNotifier(0);
 
-  static void increamentEarnings(int value) {
+  static void increamentEarnings(double value) {
     earnings.value = earnings.value + value;
+  }
+
+  static void decreamentEarnings(double value) {
+    earnings.value = earnings.value - value;
+    if (earnings.value < 0) {
+      earnings.value = 0;
+    }
   }
 
   setEarnings() async {

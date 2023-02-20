@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:business_empire/screen/gold.dart';
+import 'package:business_empire/screen/gold/gold.dart';
 import 'package:business_empire/screen/pot/pot.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/dialogue_box.dart';
@@ -227,7 +227,9 @@ class _HomePageState extends State<HomePage> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const GoldPage())),
+                          builder: (context) => GoldPage(
+                                size: size,
+                              ))),
                   text: 'Buy Gold',
                   icon: Icons.add,
                   size: size,

@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 
 class BannerContainer extends StatelessWidget {
   final double amount;
-  const BannerContainer({Key? key, required this.amount}) : super(key: key);
+  final double getGm;
+  final double currentPrice;
+  const BannerContainer({
+    Key? key,
+    required this.amount,
+    required this.getGm,
+    this.currentPrice = 5813.00,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double currentPrice = 5813;
-    String getGm = (amount / currentPrice).toStringAsFixed(4);
-
     return Container(
       padding: const EdgeInsets.all(16),
       width: double.infinity,
