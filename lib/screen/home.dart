@@ -60,6 +60,21 @@ class _HomePageState extends State<HomePage> {
 
         earnings.value++; //Increment Counter
         EarningsRepo().setEarnings();
+        if (i == 999) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Auto Click Stopped'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        } else if (i == 0) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Auto Click Started'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
       });
     }
   }
@@ -76,6 +91,21 @@ class _HomePageState extends State<HomePage> {
 
         earnings.value++; //Increment Counter
         EarningsRepo().setEarnings();
+        if (i == 1999) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Auto Click Stopped'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        } else if (i == 0) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Auto Click Started'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
       });
     }
   }
@@ -85,7 +115,6 @@ class _HomePageState extends State<HomePage> {
     EarningsRepo().setEarnings();
     EarningsRepo.increamentExpanses(800.0);
     EarningsRepo().setExp();
-    earnings.value = earnings.value - 800;
     for (var i = 0; i < 3000; i++) {
       //Loop 100 times
       await Future.delayed(const Duration(seconds: 1), () {
@@ -93,6 +122,21 @@ class _HomePageState extends State<HomePage> {
 
         earnings.value++; //Increment earnings.value
         EarningsRepo().setEarnings();
+        if (i == 2999) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Auto Click Stopped'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        } else if (i == 0) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Auto Click Started'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
       });
     }
   }

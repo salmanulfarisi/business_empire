@@ -55,25 +55,23 @@ class _ProfilePageState extends State<ProfilePage> {
                       onPressed: () {
                         ProfileRepo().generateAccnum();
                         Future.delayed(const Duration(seconds: 3), () {
-                          setState(() {
-                            showDialog(
-                              context: context,
-                              builder: (builder) => AlertDialog(
-                                title: const Text('Account details'),
-                                content: Text(
-                                    'Your Auto generated account number is ${ProfileRepo.cardNumber.value}'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      ProfileRepo().setcardDetails();
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Ok'),
-                                  )
-                                ],
-                              ),
-                            );
-                          });
+                          showDialog(
+                            context: context,
+                            builder: (builder) => AlertDialog(
+                              title: const Text('Account details'),
+                              content: Text(
+                                  'Your Auto generated account number is ${ProfileRepo.cardNumber.value}'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    ProfileRepo().setcardDetails();
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Ok'),
+                                )
+                              ],
+                            ),
+                          );
                         });
                       },
                       child: const Text('Generate account number'),

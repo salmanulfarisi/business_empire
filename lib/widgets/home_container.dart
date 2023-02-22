@@ -49,7 +49,7 @@ class HomeContainer extends StatelessWidget {
           AppSize().height10,
           Container(
             width: size.width * 0.55,
-            height: size.height * 0.05,
+            height: size.height * 0.039,
             padding: EdgeInsets.all(size.width * 0.02),
             decoration: BoxDecoration(
               color: Colors.grey[300],
