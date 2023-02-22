@@ -1,16 +1,20 @@
-import 'package:business_empire/model/new_shop.dart';
+import 'package:business_empire/services/add_shop.dart';
 import 'package:business_empire/utils/size.dart';
-import 'package:business_empire/utils/strings.dart';
 import 'package:business_empire/utils/style.dart';
 import 'package:business_empire/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
 class ShopAdd extends StatefulWidget {
+  final String shopImage;
   final String title;
   final double price;
   final int? index;
   const ShopAdd(
-      {Key? key, required this.title, required this.price, this.index})
+      {Key? key,
+      required this.title,
+      required this.price,
+      this.index,
+      required this.shopImage})
       : super(key: key);
 
   @override
@@ -57,20 +61,14 @@ class _ShopAddState extends State<ShopAdd> {
                 height: size.height * 0.0001,
                 size: size,
                 text: "Strat your ${widget.title}",
-                onTap: () {
+                onTap: () async {
                   Future.delayed(const Duration(seconds: 3), () {
                     setState(() {
-                      newShop.add(NewShop(
-                        image: widget.index == 0
-                            ? dressShopImage
-                            : widget.index == 1
-                                ? backeryShopImage
-                                : widget.index == 2
-                                    ? shoeShopImage
-                                    : stationoryShopImage,
-                        name: _shopName.text,
-                        type: widget.title,
-                      ));
+                      AddshopService().addShopData(
+                        _shopName.text,
+                        widget.title,
+                        widget.shopImage,
+                      );
                     });
 
                     ScaffoldMessenger.of(context).showSnackBar(

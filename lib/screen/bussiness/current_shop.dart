@@ -23,7 +23,7 @@ class CurrentShop extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.orange[800],
                       image: DecorationImage(
-                        image: NetworkImage(shopImage),
+                        image: NetworkImage(Uri.parse(shopImage).toString()),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -70,10 +70,13 @@ class CurrentShop extends StatelessWidget {
                   Positioned(
                     top: 80,
                     left: size.width / 2 - 100,
-                    child: Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: AppStyle.title,
+                    child: SizedBox(
+                      width: 200,
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: AppStyle.title,
+                      ),
                     ),
                   ),
                 ],
@@ -81,7 +84,7 @@ class CurrentShop extends StatelessWidget {
             ],
           ),
           Positioned(
-            top: 120,
+            top: size.height * 0.22 - 50,
             left: 20,
             right: 20,
             child: Container(

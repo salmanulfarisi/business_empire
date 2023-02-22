@@ -77,6 +77,7 @@ class _OfflineState extends State<Offline> {
                                 builder: (context) => ShopAdd(
                                       title: shops[index].name,
                                       price: shops[index].price,
+                                      shopImage: shops[index].image,
                                       index: index,
                                     )));
                       },
