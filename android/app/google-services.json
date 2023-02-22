@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "773017986259",
+    "project_id": "bussiness-empaier",
+    "storage_bucket": "bussiness-empaier.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773017986259:android:966f7a645cc2d2c2b9a026",
+        "android_client_info": {
+          "package_name": "com.salman.business_empire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773017986259-3saghf076vnhsnldt6bl187d3s25a2hm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuchXNcHkU2g--f_raEHIdEiTaP4oEbBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "773017986259-3saghf076vnhsnldt6bl187d3s25a2hm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:business_empire/screen/bussiness/bussiness_page.dart';
 import 'package:business_empire/screen/home.dart';
 import 'package:business_empire/screen/profile/profile.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +22,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
   List page = [
     const HomePage(),
-    const Text('Business'),
+    const BussinessPage(),
     const Text('School'),
     const Text('profile'),
     const ProfilePage(),
