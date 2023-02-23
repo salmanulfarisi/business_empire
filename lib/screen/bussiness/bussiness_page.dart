@@ -99,7 +99,6 @@ class _BussinessPageState extends State<BussinessPage> {
                           MaterialPageRoute(
                               builder: (context) => const Offline()));
                       setState(() {});
-                      print(newShop.length);
                     },
                   ),
                 ),
@@ -131,7 +130,6 @@ class _BussinessPageState extends State<BussinessPage> {
                       final shop = shopData[index];
                       return GestureDetector(
                         onTap: () {
-                          print(shop['name'][index]);
                           Navigator.push(
                               context,
                               MaterialPageRoute(

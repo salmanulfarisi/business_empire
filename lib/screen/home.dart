@@ -35,17 +35,17 @@ class _HomePageState extends State<HomePage> {
 
   var infinite = double.infinity;
 
-  _infinitecounter() async {
-    for (var i = 0; i < infinite; i++) {
-      //Loop 100 times
-      await Future.delayed(const Duration(seconds: 1), () {
-        // Delay 500 milliseconds
-        setState(() {
-          earnings.value++; //Increment Counter
-        });
-      });
-    }
-  }
+  // _infinitecounter() async {
+  //   for (var i = 0; i < infinite; i++) {
+  //     //Loop 100 times
+  //     await Future.delayed(const Duration(seconds: 1), () {
+  //       // Delay 500 milliseconds
+  //       setState(() {
+  //         earnings.value++; //Increment Counter
+  //       });
+  //     });
+  //   }
+  // }
 
   _increamentCounterFor1000() async {
     // EarningsRepo.earnings.value = EarningsRepo.earnings.value - 500;
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
 
     for (var i = 0; i < 1000; i++) {
       //Loop 100 times
-      print(i);
+      // print(i);
       await Future.delayed(const Duration(seconds: 1), () {
         // Delay 500 milliseconds
 

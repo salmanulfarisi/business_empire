@@ -1,3 +1,5 @@
+// ignore_for_file: body_might_complete_normally_catch_error
+
 import 'package:business_empire/screen/dashboard.dart';
 import 'package:business_empire/utils/navigate_funtions.dart';
 import 'package:firebase_auth/firebase_auth.dart';

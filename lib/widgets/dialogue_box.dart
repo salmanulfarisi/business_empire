@@ -159,7 +159,7 @@ Widget autoClickDialog(
   );
 }
 
-Widget TextFormDialogue(
+Widget textFormDialogue(
     BuildContext context,
     String title,
     String content,

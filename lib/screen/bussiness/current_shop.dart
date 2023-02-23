@@ -1,5 +1,7 @@
 import 'package:business_empire/utils/style.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CurrentShop extends StatelessWidget {
   final String title;
@@ -17,16 +19,39 @@ class CurrentShop extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: size.height * 0.3,
-                    decoration: BoxDecoration(
-                      color: Colors.orange[800],
-                      image: DecorationImage(
-                        image: NetworkImage(Uri.parse(shopImage).toString()),
-                        fit: BoxFit.cover,
+                  CachedNetworkImage(
+                    imageUrl: shopImage,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: double.infinity,
+                      height: size.height * 0.3,
+                      decoration: BoxDecoration(
+                        color: Colors.orange[800],
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        color: Colors.white,
+                      ),
+                    ),
+                    // child: Container(
+                    //   width: double.infinity,
+                    //   height: size.height * 0.3,
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.orange[800],
+                    //     image: DecorationImage(
+                    //       image: NetworkImage(Uri.parse(shopImage).toString()),
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
                   ),
                   Container(
                     width: double.infinity,
