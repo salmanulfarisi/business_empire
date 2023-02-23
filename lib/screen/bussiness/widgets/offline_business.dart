@@ -5,6 +5,7 @@ import 'package:business_empire/utils/size.dart';
 import 'package:business_empire/utils/strings.dart';
 import 'package:business_empire/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Offline extends StatefulWidget {
   const Offline({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class Offline extends StatefulWidget {
 }
 
 class _OfflineState extends State<Offline> {
+  bool isloading = false;
+
   List<OfflineShops> shops = [
     OfflineShops(
       image: dressShopImage,
@@ -36,6 +39,23 @@ class _OfflineState extends State<Offline> {
       price: 2500,
     ),
   ];
+  @override
+  void initState() {
+    super.initState();
+    loadImage();
+  }
+
+  Future<void> loadImage() async {
+    setState(() {
+      isloading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      isloading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,24 +89,37 @@ class _OfflineState extends State<Offline> {
                 ),
                 childrenDelegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ShopAdd(
-                                      title: shops[index].name,
-                                      price: shops[index].price,
-                                      shopImage: shops[index].image,
-                                      index: index,
-                                    )));
-                      },
-                      child: ShopContainer(
-                        shopImage: shops[index].image,
-                        shopName: shops[index].name,
-                        shopPrice: shops[index].price,
-                      ),
-                    );
+                    return isloading
+                        ? Shimmer.fromColors(
+                            child: Container(
+                              height: 200,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ShopAdd(
+                                            title: shops[index].name,
+                                            price: shops[index].price,
+                                            shopImage: shops[index].image,
+                                            index: index,
+                                          )));
+                            },
+                            child: ShopContainer(
+                              shopImage: shops[index].image,
+                              shopName: shops[index].name,
+                              shopPrice: shops[index].price,
+                            ),
+                          );
                   },
                   childCount: 4,
                 ),

@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 
 class PotAdContainer extends StatelessWidget {
   final Size size;
+  final String image;
   const PotAdContainer({
     Key? key,
     required this.size,
+    required this.image,
   }) : super(key: key);
 
   @override
@@ -15,10 +17,9 @@ class PotAdContainer extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl:
-              "https://life.futuregenerali.in/media/fyvhebzt/how-to-save-money-from-your-monthly-salary.webp",
+          imageUrl: image,
           imageBuilder: (context, imageProvider) => Container(
-            height: 200,
+            height: size.height * 0.235,
             width: double.infinity,
             decoration: BoxDecoration(
                 color: Colors.orange[800],

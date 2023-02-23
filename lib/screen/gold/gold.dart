@@ -5,6 +5,7 @@ import 'package:business_empire/widgets/banner_container.dart';
 import 'package:business_empire/widgets/button_widget.dart';
 import 'package:business_empire/widgets/money_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class GoldPage extends StatefulWidget {
   final Size size;
@@ -15,6 +16,7 @@ class GoldPage extends StatefulWidget {
 }
 
 class _GoldPageState extends State<GoldPage> {
+  bool isloading = false;
   final TextEditingController _controller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   double goldRate = 0.00;
@@ -23,6 +25,18 @@ class _GoldPageState extends State<GoldPage> {
   void initState() {
     super.initState();
     GoldRepo().getGold();
+    loadImage();
+  }
+
+  Future<void> loadImage() async {
+    setState(() {
+      isloading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      isloading = false;
+    });
   }
 
   @override
@@ -62,7 +76,20 @@ class _GoldPageState extends State<GoldPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const GoldContainer(),
+              isloading
+                  ? Shimmer.fromColors(
+                      child: Container(
+                        height: widget.size.height * 0.2,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                    )
+                  : const GoldContainer(),
               AppSize().height10,
               const Text(
                 'Enter Amount',

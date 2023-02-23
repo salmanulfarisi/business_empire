@@ -10,6 +10,7 @@ import 'package:business_empire/widgets/button_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BussinessPage extends StatefulWidget {
   const BussinessPage({Key? key}) : super(key: key);
@@ -19,11 +20,14 @@ class BussinessPage extends StatefulWidget {
 }
 
 class _BussinessPageState extends State<BussinessPage> {
+  bool isloading = false;
+
   @override
   void initState() {
     super.initState();
     newShop = [];
     getShopData();
+    loadImage();
   }
 
   Future<void> getShopData() async {
@@ -31,6 +35,17 @@ class _BussinessPageState extends State<BussinessPage> {
     final querySnapshot = await firestore.collection('shops').get();
     setState(() {
       AddshopService.shopData = querySnapshot.docs;
+    });
+  }
+
+  Future<void> loadImage() async {
+    setState(() {
+      isloading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      isloading = false;
     });
   }
 
@@ -57,7 +72,20 @@ class _BussinessPageState extends State<BussinessPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            const BussinessContainer(),
+            isloading
+                ? Shimmer.fromColors(
+                    child: Container(
+                      height: size.height * 0.235,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                  )
+                : const BussinessContainer(),
             AppSize().height20,
             Row(
               children: [
@@ -125,7 +153,18 @@ class _BussinessPageState extends State<BussinessPage> {
                 } else if (snapshot.hasError) {
                   return const Text('Error loading shop data');
                 } else {
-                  return const CircularProgressIndicator();
+                  return Shimmer.fromColors(
+                    child: Container(
+                      height: size.height * 0.2,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                  );
                 }
               },
             ),

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:business_empire/screen/pot/edit_goal.dart';
 import 'package:business_empire/screen/pot/pot_repo.dart';
+import 'package:business_empire/utils/strings.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/money_repository.dart';
 import 'package:business_empire/widgets/pot_ad_container.dart';
@@ -10,6 +11,7 @@ import 'package:business_empire/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PotPage extends StatefulWidget {
   final Size size;
@@ -27,6 +29,7 @@ class _PotPageState extends State<PotPage> {
   double setgoal = 0;
   // double addedMoney = 0;
   bool isVisible = false;
+  bool isloading = false;
   // Timer? _timer;
   // final int _seconds = 24 * 60 * 60;
 
@@ -44,6 +47,18 @@ class _PotPageState extends State<PotPage> {
       setState(() {
         isVisible = true;
       });
+    });
+    loadImage();
+  }
+
+  Future<void> loadImage() async {
+    setState(() {
+      isloading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      isloading = false;
     });
   }
 
@@ -168,9 +183,24 @@ class _PotPageState extends State<PotPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PotAdContainer(
-                size: widget.size,
-              ),
+              isloading
+                  ? Shimmer.fromColors(
+                      child: Container(
+                        height: widget.size.height * 0.235,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                    )
+                  : PotAdContainer(
+                      size: widget.size,
+                      image: potImage,
+                    ),
+
               AppSize().height20,
               const Text(
                 'Your Pot',
