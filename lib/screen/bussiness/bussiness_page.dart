@@ -8,6 +8,7 @@ import 'package:business_empire/utils/size.dart';
 import 'package:business_empire/utils/style.dart';
 import 'package:business_empire/widgets/button_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BussinessPage extends StatefulWidget {
@@ -34,8 +35,12 @@ class _BussinessPageState extends State<BussinessPage> {
   }
 
   Stream<QuerySnapshot> _getShopDataStream() {
-    final firestore = FirebaseFirestore.instance;
-    final stream = firestore.collection('shops').snapshots();
+    final user = FirebaseAuth.instance.currentUser;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    final userDocRef = usersCollection.doc(user!.uid);
+    final subCollectionRef = userDocRef.collection('shops');
+    // final firestore = FirebaseFirestore.instance;
+    final stream = subCollectionRef.snapshots();
     return stream;
   }
 

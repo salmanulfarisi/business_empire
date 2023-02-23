@@ -22,7 +22,7 @@ class CustonDrawer extends StatelessWidget {
 
     void _signOut() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.clear();
+      prefs.remove('google');
       await auth.signOut();
       await GoogleSignIn().signOut();
       // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
