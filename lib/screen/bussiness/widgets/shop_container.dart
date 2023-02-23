@@ -1,4 +1,5 @@
 import 'package:business_empire/utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ShopContainer extends StatelessWidget {
@@ -16,15 +17,30 @@ class ShopContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.orange[800],
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              image: NetworkImage(shopImage),
-              fit: BoxFit.cover,
+        CachedNetworkImage(
+          imageUrl: shopImage,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              color: Colors.orange[800],
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
+          // child: Container(
+          //   decoration: BoxDecoration(
+          //     color: Colors.orange[800],
+          //     borderRadius: BorderRadius.circular(10),
+          //     image: DecorationImage(
+          //       image: NetworkImage(shopImage),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
         ),
         Container(
           decoration: BoxDecoration(

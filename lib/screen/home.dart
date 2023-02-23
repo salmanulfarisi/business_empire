@@ -10,6 +10,7 @@ import 'package:business_empire/widgets/dialogue_box.dart';
 import 'package:business_empire/widgets/earning_container.dart';
 import 'package:business_empire/widgets/money_repository.dart';
 import 'package:business_empire/widgets/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // static const String username = 'Salman';
+
   int clicks = 0;
   String greeting = 'Good Morning';
   // String upiId = '${username}123456@upi';
@@ -194,10 +196,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser!;
     final size = MediaQuery.of(context).size;
     return Scaffold(
       key: _key,
-      drawer: const CustonDrawer(),
+      drawer: CustonDrawer(
+        profileImage: user!.photoURL!,
+        userName: user.displayName!,
+      ),
       body: Stack(
         children: [
           Column(
@@ -229,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello,${ProfileRepo.userName.value}',
+                        'Hello,${user.displayName}',
                         style: AppStyle.title,
                       ),
                       Text(
@@ -253,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(
                         builder: (context) => const BankScreen()));
               },
-              upiId: ProfileRepo.upiId.value,
+              upiId: user.displayName!.substring(0, 6) + '12345@upi',
             ),
           ),
           Positioned(

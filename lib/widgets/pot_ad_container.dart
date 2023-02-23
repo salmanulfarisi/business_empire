@@ -1,5 +1,6 @@
 import 'package:business_empire/screen/pot/post_more.dart';
 import 'package:business_empire/widgets/button_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PotAdContainer extends StatelessWidget {
@@ -13,17 +14,22 @@ class PotAdContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          height: 200,
-          width: double.infinity,
-          decoration: BoxDecoration(
-              color: Colors.orange[800],
-              borderRadius: BorderRadius.circular(10),
-              image: const DecorationImage(
-                image: NetworkImage(
-                    "https://life.futuregenerali.in/media/fyvhebzt/how-to-save-money-from-your-monthly-salary.webp"),
-                fit: BoxFit.cover,
-              )),
+        CachedNetworkImage(
+          imageUrl:
+              "https://life.futuregenerali.in/media/fyvhebzt/how-to-save-money-from-your-monthly-salary.webp",
+          imageBuilder: (context, imageProvider) => Container(
+            height: 200,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.orange[800],
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                )),
+          ),
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
         ),
         Container(
           height: 200,

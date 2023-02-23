@@ -1,5 +1,6 @@
 import 'package:business_empire/screen/splash.dart';
 import 'package:business_empire/services/auth.dart';
+import 'package:business_empire/services/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        StreamProvider(
+            create: (context) => context.watch<AuthProvider>().stream(),
+            initialData: null),
         Provider<FirebaseAuthMethods>(
           create: (_) => FirebaseAuthMethods(FirebaseAuth.instance),
         ),

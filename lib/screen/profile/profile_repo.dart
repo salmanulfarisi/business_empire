@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileRepo {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final User? user = FirebaseAuth.instance.currentUser;
   static ValueNotifier<String> userName = ValueNotifier('salman');
   static ValueNotifier<String> email =
       ValueNotifier('${userName.value}@gmail.com');

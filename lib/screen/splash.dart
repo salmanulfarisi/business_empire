@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:business_empire/screen/dashboard.dart';
 import 'package:business_empire/screen/onboarding.dart';
@@ -24,16 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future getValidation() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var isLogin = prefs.getString('email');
-    var isPhone = prefs.getString('phone');
+
     var isGoogle = prefs.getString('google');
 
-    if (isLogin != null || isPhone != null || isGoogle != null) {
+    if (isGoogle != null) {
+      log('isLogin: $isGoogle');
       Timer(const Duration(seconds: 3), () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const DashBoardPage()));
       });
     } else {
+      log('isLogin: $isGoogle');
       Timer(const Duration(seconds: 3), () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const OnboardingScreen()));

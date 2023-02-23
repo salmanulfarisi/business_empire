@@ -1,5 +1,6 @@
 import 'package:business_empire/utils/strings.dart';
 import 'package:business_empire/utils/style.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class GoldContainer extends StatelessWidget {
@@ -10,18 +11,36 @@ class GoldContainer extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          width: double.infinity,
-          height: size.height * 0.2,
-          decoration: BoxDecoration(
-            color: Colors.grey[300],
-            borderRadius: BorderRadius.circular(20),
-            image: const DecorationImage(
-              image: NetworkImage(goldImage),
-              fit: BoxFit.cover,
+        CachedNetworkImage(
+          imageUrl: goldImage,
+          imageBuilder: (context, imageProvider) => Container(
+            padding: const EdgeInsets.all(16),
+            width: double.infinity,
+            height: size.height * 0.2,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
+          // child: Container(
+          //   padding: const EdgeInsets.all(16),
+          //   width: double.infinity,
+          //   height: size.height * 0.2,
+          //   decoration: BoxDecoration(
+          //     color: Colors.grey[300],
+          //     borderRadius: BorderRadius.circular(20),
+          //     image: const DecorationImage(
+          //       image: NetworkImage(goldImage),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
         ),
         Container(
           padding: const EdgeInsets.all(16),
