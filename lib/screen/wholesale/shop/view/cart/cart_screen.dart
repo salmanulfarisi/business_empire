@@ -1,4 +1,5 @@
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
+import 'package:business_empire/screen/wholesale/widgets/bgwidget.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatelessWidget {
@@ -6,12 +7,13 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.purple,
-        child: "Cart is Empty!"
-            .text
-            .fontFamily(semibold)
-            .color(whiteColor)
-            .makeCentered());
+    return bgWidget(
+      child: Container(
+          child: "Cart is Empty!"
+              .text
+              .fontFamily(semibold)
+              .color(textfieldGrey)
+              .makeCentered()),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class ButtonWidget extends StatelessWidget {
         height: size.height * height!,
         padding: EdgeInsets.all(size.width * 0.02),
         decoration: BoxDecoration(
-          color: Colors.orange[800],
+          color: redColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(

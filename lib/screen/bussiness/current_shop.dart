@@ -1,3 +1,4 @@
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/utils/style.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class CurrentShop extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: lightGrey,
       body: Stack(
         children: [
           Column(

@@ -1,3 +1,4 @@
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/services/add_shop.dart';
 import 'package:business_empire/utils/size.dart';
 import 'package:business_empire/utils/style.dart';
@@ -27,8 +28,9 @@ class _ShopAddState extends State<ShopAdd> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+        backgroundColor: lightGrey,
         appBar: AppBar(
-          backgroundColor: Colors.orange[800],
+          backgroundColor: redColor,
           title: Text(widget.title),
         ),
         body: Padding(

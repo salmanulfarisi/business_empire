@@ -3,6 +3,7 @@ import 'package:business_empire/screen/bussiness/current_shop.dart';
 import 'package:business_empire/screen/bussiness/widgets/bussiness_container.dart';
 import 'package:business_empire/screen/bussiness/widgets/my_bussinesses_card.dart';
 import 'package:business_empire/screen/bussiness/widgets/offline_business.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/services/add_shop.dart';
 import 'package:business_empire/utils/size.dart';
 import 'package:business_empire/utils/style.dart';
@@ -63,8 +64,9 @@ class _BussinessPageState extends State<BussinessPage> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: lightGrey,
       appBar: AppBar(
-        backgroundColor: Colors.orange[800],
+        backgroundColor: redColor,
         title: const Text('Bussiness Page'),
       ),
       body: Padding(

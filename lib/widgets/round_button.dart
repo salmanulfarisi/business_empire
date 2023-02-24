@@ -1,3 +1,4 @@
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class RoundButton extends StatelessWidget {
           onTap: onTap,
           child: CircleAvatar(
             radius: 30,
-            backgroundColor: Colors.grey[200],
+            backgroundColor: darkFontGrey.withOpacity(0.1),
             child: IconButton(
               onPressed: onTap,
               icon: Icon(
@@ -65,7 +66,7 @@ class NonVisibleRoundButoon extends StatelessWidget {
           onTap: onTap,
           child: CircleAvatar(
             radius: 30,
-            backgroundColor: Colors.grey[200],
+            backgroundColor: lightGrey,
             child: IconButton(
               onPressed: onTap,
               icon: Icon(

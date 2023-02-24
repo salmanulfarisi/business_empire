@@ -1,5 +1,6 @@
 import 'package:business_empire/screen/gold/gold_repo.dart';
 import 'package:business_empire/screen/gold/widget/gold_container.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/banner_container.dart';
 import 'package:business_empire/widgets/button_widget.dart';
@@ -52,9 +53,10 @@ class _GoldPageState extends State<GoldPage> {
     }
 
     return Scaffold(
+      backgroundColor: lightGrey,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.orange[800],
+        backgroundColor: redColor,
         title: Column(
           children: [
             const Text('Digital Gold'),

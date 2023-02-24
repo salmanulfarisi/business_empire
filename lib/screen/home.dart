@@ -4,6 +4,7 @@ import 'package:business_empire/screen/bank/bank_screen.dart';
 import 'package:business_empire/screen/gold/gold.dart';
 import 'package:business_empire/screen/pot/pot.dart';
 import 'package:business_empire/screen/profile/profile_repo.dart';
+import 'package:business_empire/screen/wholesale/widgets/bgwidget.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/custom_drawer.dart';
 import 'package:business_empire/widgets/dialogue_box.dart';
@@ -199,140 +200,143 @@ class _HomePageState extends State<HomePage> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser!;
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      key: _key,
-      drawer: CustonDrawer(
-        profileImage: user!.photoURL!,
-        userName: user.displayName!,
-      ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Container(
-                width: size.width,
-                height: size.height * 0.35,
-                color: const Color.fromARGB(255, 255, 87, 16),
-              ),
-            ],
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      _key.currentState!.openDrawer();
-                    },
-                    icon: const Icon(
-                      LineIcons.bars,
-                      color: Colors.white,
+    return bgWidget(
+      child: Scaffold(
+        key: _key,
+        // backgroundColor: lightGrey,
+        drawer: CustonDrawer(
+          profileImage: user!.photoURL!,
+          userName: user.displayName!,
+        ),
+        body: Stack(
+          children: [
+            Column(
+              children: const [
+                // Container(
+                //   width: size.width,
+                //   height: size.height * 0.35,
+                //   color: Colors.transparent,
+                // ),
+              ],
+            ),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        _key.currentState!.openDrawer();
+                      },
+                      icon: const Icon(
+                        LineIcons.bars,
+                        color: Colors.white,
+                      ),
                     ),
+                    AppSize().width20,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hello,${user.displayName}',
+                          style: AppStyle.title,
+                        ),
+                        Text(
+                          AppFunctions.greetings(greeting),
+                          style: AppStyle.subtitle,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: size.height * 0.15,
+              left: size.width * 0.05,
+              child: HomeContainer(
+                size: size,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BankScreen()));
+                },
+                upiId: user.displayName!.substring(0, 6) + '12345@upi',
+              ),
+            ),
+            Positioned(
+              top: size.height * 0.48,
+              left: size.width * 0.1,
+              child: Row(
+                children: [
+                  visibleRoundButton()
+                      ? RoundButton(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return autoClickDialog(
+                                    context,
+                                    'Auto Click',
+                                    'Click on auto button to start earning',
+                                    Colors.green,
+                                    'Ok',
+                                    earnings.value,
+                                    _increamentCounterFor1000,
+                                    _increamentCounterFor2000,
+                                    _increamentCounterFor3000,
+                                  );
+                                });
+                          },
+                          text: 'auto',
+                          icon: Icons.add,
+                          size: size,
+                        )
+                      : NonVisibleRoundButoon(
+                          size: size,
+                          text: 'auto',
+                          icon: Icons.add,
+                        ),
+                  AppSize().width20,
+                  RoundButton(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PotPage(
+                                    size: size,
+                                  )));
+                    },
+                    text: 'pots',
+                    icon: Icons.add,
+                    size: size,
                   ),
                   AppSize().width20,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hello,${user.displayName}',
-                        style: AppStyle.title,
-                      ),
-                      Text(
-                        AppFunctions.greetings(greeting),
-                        style: AppStyle.subtitle,
-                      ),
-                    ],
+                  RoundButton(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GoldPage(
+                                  size: size,
+                                ))),
+                    text: 'Buy Gold',
+                    icon: Icons.add,
+                    size: size,
                   ),
                 ],
               ),
             ),
-          ),
-          Positioned(
-            top: size.height * 0.15,
-            left: size.width * 0.05,
-            child: HomeContainer(
-              size: size,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BankScreen()));
-              },
-              upiId: user.displayName!.substring(0, 6) + '12345@upi',
-            ),
-          ),
-          Positioned(
-            top: size.height * 0.48,
-            left: size.width * 0.1,
-            child: Row(
-              children: [
-                visibleRoundButton()
-                    ? RoundButton(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return autoClickDialog(
-                                  context,
-                                  'Auto Click',
-                                  'Click on auto button to start earning',
-                                  Colors.green,
-                                  'Ok',
-                                  earnings.value,
-                                  _increamentCounterFor1000,
-                                  _increamentCounterFor2000,
-                                  _increamentCounterFor3000,
-                                );
-                              });
-                        },
-                        text: 'auto',
-                        icon: Icons.add,
-                        size: size,
-                      )
-                    : NonVisibleRoundButoon(
-                        size: size,
-                        text: 'auto',
-                        icon: Icons.add,
-                      ),
-                AppSize().width20,
-                RoundButton(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PotPage(
-                                  size: size,
-                                )));
-                  },
-                  text: 'pots',
-                  icon: Icons.add,
+            Positioned(
+                top: size.height * 0.60,
+                left: size.width * 0.05,
+                child: EarningContainer(
                   size: size,
-                ),
-                AppSize().width20,
-                RoundButton(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GoldPage(
-                                size: size,
-                              ))),
-                  text: 'Buy Gold',
-                  icon: Icons.add,
-                  size: size,
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-              top: size.height * 0.60,
-              left: size.width * 0.05,
-              child: EarningContainer(
-                size: size,
-                onTap: _incrementCounter,
-              ))
-        ],
+                  onTap: _incrementCounter,
+                ))
+          ],
+        ),
       ),
     );
   }

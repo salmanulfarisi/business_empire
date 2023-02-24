@@ -1,5 +1,6 @@
 import 'package:business_empire/model/offline_shops.dart';
 import 'package:business_empire/screen/wholesale/shop/shop.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/widgets/wholesale_shop.dart';
 import 'package:business_empire/utils/navigate_funtions.dart';
 import 'package:business_empire/utils/size.dart';
@@ -61,8 +62,9 @@ class _WholeSaleBussState extends State<WholeSaleBuss> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: lightGrey,
       appBar: AppBar(
-        backgroundColor: Colors.orange[800],
+        backgroundColor: redColor,
         title: const Text('WholeSaleBuss'),
         centerTitle: true,
       ),

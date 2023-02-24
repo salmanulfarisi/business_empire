@@ -1,6 +1,7 @@
 import 'package:business_empire/model/offline_shops.dart';
 import 'package:business_empire/screen/bussiness/shop_add.dart';
 import 'package:business_empire/screen/bussiness/widgets/shop_container.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/utils/size.dart';
 import 'package:business_empire/utils/strings.dart';
 import 'package:business_empire/utils/style.dart';
@@ -59,8 +60,9 @@ class _OfflineState extends State<Offline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightGrey,
       appBar: AppBar(
-        backgroundColor: Colors.orange[800],
+        backgroundColor: redColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

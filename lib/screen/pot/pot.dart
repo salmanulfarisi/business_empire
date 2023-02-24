@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:business_empire/screen/pot/edit_goal.dart';
 import 'package:business_empire/screen/pot/pot_repo.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/utils/strings.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/money_repository.dart';
@@ -164,8 +165,9 @@ class _PotPageState extends State<PotPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightGrey,
       appBar: AppBar(
-        backgroundColor: Colors.orange[800],
+        backgroundColor: redColor,
         centerTitle: true,
         title: Column(
           children: [

@@ -1,6 +1,7 @@
 import 'package:business_empire/screen/bussiness/bussiness_page.dart';
 import 'package:business_empire/screen/home.dart';
 import 'package:business_empire/screen/profile/profile.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -33,10 +34,11 @@ class _DashBoardPageState extends State<DashBoardPage> {
     return Scaffold(
         body: page[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: redColor,
+          selectedLabelStyle: const TextStyle(fontFamily: semibold),
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.white,
+          backgroundColor: whiteColor,
           currentIndex: currentIndex,
-          backgroundColor: const Color.fromARGB(255, 255, 87, 16),
           onTap: changePage,
           items: const [
             BottomNavigationBarItem(
