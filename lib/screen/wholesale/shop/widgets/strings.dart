@@ -1,6 +1,6 @@
 const appname = "Bussiness Empire";
 const appversion = "Version 1.0.0";
-const credits = "@Kunjutty";
+const credits = "@Salman";
 
 // home screen Strings
 const searchAnything = "Search Anything...",

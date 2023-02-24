@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:business_empire/screen/dashboard.dart';
 import 'package:business_empire/screen/onboarding.dart';
-import 'package:business_empire/utils/size.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
+import 'package:business_empire/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,34 +55,27 @@ class _SplashScreenState extends State<SplashScreen> {
       size: 50.0,
     );
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: redColor,
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Image.network(
-          //     'https://cdn.pixabay.com/photo/2019/09/04/11/49/men-4451375_960_720.png'),
-          CachedNetworkImage(
-            imageUrl:
-                "https://cdn.pixabay.com/photo/2019/09/04/11/49/men-4451375_960_720.png",
-            imageBuilder: (context, imageProvider) => Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-              ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              icSplashBg,
+              width: 300,
             ),
-            placeholder: (context, url) => const CircularProgressIndicator(),
           ),
-
-          AppSize().height10,
-          const Text('Business Empire',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold)),
-          spinkit,
+          20.heightBox,
+          appLogoWidget(),
+          10.heightBox,
+          appname.text.fontFamily(bold).size(22).white.make(),
+          10.heightBox,
+          appversion.text.size(14).white.make(),
+          const Spacer(),
+          credits.text.size(14).white.make(),
+          20.heightBox,
         ],
       )),
     );
