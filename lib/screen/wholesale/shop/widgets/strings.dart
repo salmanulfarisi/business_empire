@@ -1,6 +1,21 @@
 const appname = "Bussiness Empire";
 const appversion = "Version 1.0.0";
 const credits = "@Salman";
+const email = "Email";
+const emailHint = "salman@admin.com";
+const password = "Password";
+const passwordHint = "********";
+const retypePassword = "Retype Password";
+const name = "name";
+const nameHint = "Salman";
+const forgetPassword = "Forget Password?";
+const login = "Login";
+const signup = "Sign Up";
+const createNewAcc = "or, create a new account";
+const loginwith = 'Log in with';
+const privacyPolicy = "Privacy Policy";
+const termsConditions = "Terms and Conditions";
+const alreadyHaveAcc = "Already have an account?";
 
 // home screen Strings
 const searchAnything = "Search Anything...",
@@ -33,7 +48,7 @@ const categories = "Categories",
 // item deails Strings
 const video = "Videos",
     reviews = "Reviews",
-    privacyPolicy = "Privacy Policy",
+    // privacyPolicy = "Privacy Policy",
     sellerPolicy = "Seller Policy",
     returnPolicy = "Return Policy",
     supportPolicy = "Support Policy",

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:business_empire/screen/auth/login_screen.dart';
 import 'package:business_empire/services/auth.dart';
 import 'package:business_empire/utils/strings.dart';
 import 'package:business_empire/utils/utils.dart';
@@ -8,6 +9,7 @@ import 'package:business_empire/widgets/dot_indicator.dart';
 import 'package:business_empire/widgets/get_started.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -252,6 +254,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onTap: () {
                 log('Google');
                 context.read<FirebaseAuthMethods>().signInWithGoogle(context);
+              },
+            ),
+            AppSize().height20,
+            GetStartedWidget(
+              text: "Get started with Email",
+              icon: LineIcons.envelope,
+              onTap: () {
+                Get.to(() => const LoginScreen());
               },
             ),
             AppSize().height20,
