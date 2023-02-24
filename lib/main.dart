@@ -1,9 +1,11 @@
 import 'package:business_empire/screen/splash.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/services/auth.dart';
 import 'package:business_empire/services/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -30,13 +32,14 @@ class MyApp extends StatelessWidget {
           initialData: null,
         ),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: appname,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        // routes: routes,
-        // onGenerateRoute: Routerr.onGenerateRouter,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.transparent,
+            ),
+            fontFamily: regular),
         home: const SplashScreen(),
       ),
     );
