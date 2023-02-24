@@ -1,7 +1,10 @@
+import 'package:business_empire/screen/auth/controller/auth_controller.dart';
 import 'package:business_empire/screen/auth/widget/custom_textfield.dart';
+import 'package:business_empire/screen/dashboard.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/our_button.dart';
 import 'package:business_empire/screen/wholesale/widgets/bgwidget.dart';
+import 'package:business_empire/utils/firebase_consts.dart';
 import 'package:business_empire/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +18,13 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool? isChecked = false;
+  var controller = Get.put(AuthController());
+
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var retypePasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return bgWidget(
@@ -31,15 +41,19 @@ class _SignupScreenState extends State<SignupScreen> {
               Column(
                 children: [
                   customTextField(
-                      title: name, hint: nameHint, controller: null),
+                      title: name, hint: nameHint, controller: nameController),
                   customTextField(
-                      title: email, hint: emailHint, controller: null),
+                      title: email,
+                      hint: emailHint,
+                      controller: emailController),
                   customTextField(
-                      title: password, hint: passwordHint, controller: null),
+                      title: password,
+                      hint: passwordHint,
+                      controller: passwordController),
                   customTextField(
                       title: retypePassword,
                       hint: passwordHint,
-                      controller: null),
+                      controller: retypePasswordController),
                   5.heightBox,
                   Row(
                     children: [
@@ -82,13 +96,33 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   5.heightBox,
                   ourButton(
-                          color: isChecked == true ? redColor : lightGrey,
-                          textColor: whiteColor,
-                          title: signup,
-                          onPress: () {})
-                      .box
-                      .width(context.screenWidth)
-                      .make(),
+                      color: isChecked == true ? redColor : lightGrey,
+                      textColor: whiteColor,
+                      title: signup,
+                      onPress: () async {
+                        if (isChecked != false) {
+                          try {
+                            await controller
+                                .signUpMethod(
+                                    context: context,
+                                    email: emailController.text,
+                                    password: passwordController.text)
+                                .then((value) {
+                              return controller.storeUserData(
+                                email: emailController.text,
+                                password: passwordController.text,
+                                name: nameController.text,
+                              );
+                            }).then((value) {
+                              VxToast.show(context, msg: loggedIn);
+                              Get.offAll(() => const DashBoardPage());
+                            });
+                          } catch (e) {
+                            auth.signOut();
+                            VxToast.show(context, msg: e.toString());
+                          }
+                        }
+                      }).box.width(context.screenWidth).make(),
                   10.heightBox,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
