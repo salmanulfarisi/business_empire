@@ -1,10 +1,13 @@
 import 'package:business_empire/screen/onboarding.dart';
+import 'package:business_empire/screen/wholesale/wholesale.dart';
+import 'package:business_empire/utils/navigate_funtions.dart';
 import 'package:business_empire/utils/size.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustonDrawer extends StatelessWidget {
@@ -102,16 +105,30 @@ class CustonDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Logout'),
+            leading: const Icon(LineIcons.home, color: Colors.black54),
+            title: const Text("Home"),
             onTap: () {
-              _signOut();
+              Navigator.pop(context);
             },
           ),
           ListTile(
-            title: const Text('Item 2'),
+            leading: const Icon(
+              LineIcons.shoppingCart,
+              color: Colors.black54,
+            ),
+            title: const Text("WholeSale Bussiness"),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              NavigateFunctions.pushPage(context, const WholeSaleBuss());
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              LineIcons.user,
+              color: Colors.black54,
+            ),
+            title: const Text('Logout'),
+            onTap: () {
+              _signOut();
             },
           ),
         ],

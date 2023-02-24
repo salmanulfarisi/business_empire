@@ -43,7 +43,6 @@ class _BussinessPageState extends State<BussinessPage> {
       isloading = true;
     });
     await Future.delayed(const Duration(seconds: 2));
-
     setState(() {
       isloading = false;
     });
