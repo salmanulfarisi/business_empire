@@ -1,5 +1,5 @@
 import 'package:business_empire/screen/bussiness/bussiness_page.dart';
-import 'package:business_empire/screen/home.dart';
+import 'package:business_empire/screen/home/home.dart';
 import 'package:business_empire/screen/wholesale/shop/view/profile/profile_screen.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:flutter/cupertino.dart';

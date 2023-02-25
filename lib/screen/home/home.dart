@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'wholesale/shop/services/firestore_sercices.dart';
+import '../wholesale/shop/services/firestore_sercices.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -188,12 +188,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () {
-      getEarnings();
-      ProfileRepo().getUserName();
-      EarningsRepo.getTotalClick();
-      ProfileRepo().getCardDetails();
-    });
+    getEarnings();
+    ProfileRepo().getUserName();
+    EarningsRepo.getTotalClick();
+    ProfileRepo().getCardDetails();
+
     super.initState();
   }
 
@@ -216,10 +215,6 @@ class _HomePageState extends State<HomePage> {
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation(redColor),
                 ),
-              );
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(redColor),
               );
             } else {
               var data = snapshot.data!.docs[0];
@@ -290,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                     left: size.width * 0.1,
                     child: Row(
                       children: [
-                        isVisble
+                        isVisble == true
                             ? RoundButton(
                                 onTap: () {
                                   showDialog(

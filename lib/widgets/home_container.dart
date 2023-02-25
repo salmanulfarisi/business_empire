@@ -1,3 +1,4 @@
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/button_widget.dart';
 import 'package:business_empire/widgets/money_repository.dart';
@@ -33,18 +34,17 @@ class HomeContainer extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Text(
-            'Total Earnings',
-            style: AppStyle.title2,
-          ),
-          AppSize().height10,
+          'Total Earnings'.text.color(darkFontGrey).size(16).make(),
+          10.heightBox,
           ValueListenableBuilder(
               valueListenable: EarningsRepo.earnings,
               builder: (context, value, child) {
-                return Text(
-                  '₹ $value',
-                  style: AppStyle.subtitleBlack,
-                );
+                return '₹ $value'
+                    .text
+                    .color(darkFontGrey)
+                    .size(24)
+                    .fontFamily(semibold)
+                    .make();
               }),
           AppSize().height10,
           Container(
