@@ -1,8 +1,10 @@
+import 'package:business_empire/screen/wholesale/shop/view/profile/edit_profile.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/details_card.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/lists.dart';
 import 'package:business_empire/screen/wholesale/widgets/bgwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -18,12 +20,15 @@ class ProfileScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
-                    alignment: Alignment.topRight,
-                    child: const Icon(Icons.edit)
-                        .box
-                        .roundedFull
-                        .make()
-                        .pOnly(right: 8)),
+                        alignment: Alignment.topRight,
+                        child: const Icon(Icons.edit)
+                            .box
+                            .roundedFull
+                            .make()
+                            .pOnly(right: 8))
+                    .onTap(() {
+                  Get.to(() => const EditProfile());
+                }),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
