@@ -51,6 +51,9 @@ class AuthController extends GetxController {
       'email': email,
       'password': password,
       'imageUrl': '',
+      "cart_count": "00",
+      "wishlist_count": "00",
+      "order_count": "00",
       'createdAt': DateTime.now(),
       'updatedAt': DateTime.now(),
     });

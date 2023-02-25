@@ -1,6 +1,6 @@
 import 'package:business_empire/screen/bussiness/bussiness_page.dart';
 import 'package:business_empire/screen/home.dart';
-import 'package:business_empire/screen/profile/profile.dart';
+import 'package:business_empire/screen/wholesale/shop/view/profile/profile_screen.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
     const BussinessPage(),
     const Text('School'),
     const Text('profile'),
-    const ProfilePage(),
+    // const ProfilePage(),
+    const ProfileScreen()
   ];
 
   @override
