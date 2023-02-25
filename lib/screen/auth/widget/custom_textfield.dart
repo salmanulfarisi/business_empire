@@ -1,7 +1,7 @@
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:flutter/material.dart';
 
-Widget customTextField({String? title, String? hint, controller}) {
+Widget customTextField({String? title, String? hint, controller, ispass}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -9,6 +9,7 @@ Widget customTextField({String? title, String? hint, controller}) {
       5.heightBox,
       TextFormField(
         controller: controller,
+        obscureText: ispass,
         decoration: InputDecoration(
             hintText: hint,
             hintStyle:
