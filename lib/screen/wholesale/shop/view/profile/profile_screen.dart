@@ -57,21 +57,35 @@ class ProfileScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
                       children: [
-                        data['imageUrl'] == null
-                            ? Image.asset(
-                                imgProfile2,
-                                width: 100,
-                                fit: BoxFit.cover,
-                              ).box.roundedFull.clip(Clip.antiAlias).make()
-                            : SizedBox(
+                        controllr.isGoogle.value == true
+                            ? SizedBox(
                                 height: size.height * 0.1,
                                 width: size.width * 0.2,
                                 child: Image.network(
-                                  data['imageUrl'],
+                                  currentUser!.photoURL.toString(),
                                   width: 100,
                                   fit: BoxFit.cover,
                                 ).box.roundedFull.clip(Clip.antiAlias).make(),
-                              ),
+                              )
+                            : data['imageUrl'] == ''
+                                ? Image.asset(
+                                    imgProfile2,
+                                    width: 100,
+                                    fit: BoxFit.cover,
+                                  ).box.roundedFull.clip(Clip.antiAlias).make()
+                                : SizedBox(
+                                    height: size.height * 0.1,
+                                    width: size.width * 0.2,
+                                    child: Image.network(
+                                      data['imageUrl'],
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    )
+                                        .box
+                                        .roundedFull
+                                        .clip(Clip.antiAlias)
+                                        .make(),
+                                  ),
                         10.widthBox,
                         Expanded(
                             child: Column(

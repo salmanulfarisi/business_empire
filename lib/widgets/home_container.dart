@@ -72,28 +72,41 @@ class HomeContainer extends StatelessWidget {
             onTap: onTap,
           ),
           AppSize().height20,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Your Upi ID: $upiId",
-                style: AppStyle.bodyGrey,
-              ),
-              AppSize().width10,
-              GestureDetector(
-                onTap: () {
-                  Clipboard.setData(ClipboardData(text: upiId));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('UPI ID Copied'),
-                    ),
-                  );
-                },
-                child: const Icon(
-                  Icons.copy,
+          SizedBox(
+            width: size.width * 1.2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Your Upi ID: $upiId",
+                  style: AppStyle.bodyGrey,
                 ),
-              )
-            ],
+                AppSize().width10,
+                GestureDetector(
+                  onTap: () {
+                    if (upiId == "Add Your Name") {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Add Your Name First"),
+                        ),
+                      );
+                    } else {
+                      Clipboard.setData(
+                        ClipboardData(text: upiId),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('UPI ID Copied'),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Icon(
+                    Icons.copy,
+                  ),
+                )
+              ],
+            ),
           )
         ],
       ),

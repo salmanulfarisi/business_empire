@@ -5,6 +5,7 @@ import 'package:business_empire/screen/wholesale/shop/controller/profile_control
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/our_button.dart';
 import 'package:business_empire/screen/wholesale/widgets/bgwidget.dart';
+import 'package:business_empire/utils/firebase_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,39 +25,57 @@ class EditProfile extends StatelessWidget {
           () => Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              data['imageUrl'] == "" && controller.profilePath.isEmpty
-                  ? Image.asset(
-                      imgProfile2,
-                      width: 100,
-                      fit: BoxFit.cover,
-                    ).box.roundedFull.clip(Clip.antiAlias).make()
-                  : data['imageUrl'] != '' && controller.profilePath.isEmpty
-                      ? SizedBox(
-                          height: size.height * 0.1,
-                          width: size.width * 0.2,
-                          child: Image.network(
-                            data['imageUrl'],
-                            width: 100,
-                            fit: BoxFit.cover,
-                          ).box.roundedFull.clip(Clip.antiAlias).make(),
-                        )
-                      : SizedBox(
-                          height: size.height * 0.1,
-                          width: size.width * 0.2,
-                          child: Image.file(
-                            File(controller.profilePath.value),
-                            width: 100,
-                            fit: BoxFit.cover,
-                          ).box.roundedFull.clip(Clip.antiAlias).make(),
-                        ),
+              data['imageUrl'] == '' && controller.isGoogle.value == true
+                  ? SizedBox(
+                      height: size.height * 0.1,
+                      width: size.width * 0.2,
+                      child: Image.network(
+                        currentUser!.photoURL.toString(),
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ).box.roundedFull.clip(Clip.antiAlias).make(),
+                    )
+                  : data['imageUrl'] == "" && controller.profilePath.isEmpty
+                      ? Image.asset(
+                          imgProfile2,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ).box.roundedFull.clip(Clip.antiAlias).make()
+                      : data['imageUrl'] != '' && controller.profilePath.isEmpty
+                          ? SizedBox(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              child: Image.network(
+                                data['imageUrl'],
+                                width: 100,
+                                fit: BoxFit.cover,
+                              ).box.roundedFull.clip(Clip.antiAlias).make(),
+                            )
+                          : SizedBox(
+                              height: size.height * 0.1,
+                              width: size.width * 0.2,
+                              child: Image.file(
+                                File(controller.profilePath.value),
+                                width: 100,
+                                fit: BoxFit.cover,
+                              ).box.roundedFull.clip(Clip.antiAlias).make(),
+                            ),
               10.heightBox,
-              ourButton(
-                  color: redColor,
-                  onPress: () {
-                    controller.changeImage(context);
-                  },
-                  textColor: whiteColor,
-                  title: "Change"),
+              controller.isGoogle.value
+                  ? ourButton(
+                      color: lightGrey,
+                      onPress: () {
+                        VxToast.show(context, msg: "Can't Change");
+                      },
+                      textColor: whiteColor,
+                      title: "Change")
+                  : ourButton(
+                      color: redColor,
+                      onPress: () {
+                        controller.changeImage(context);
+                      },
+                      textColor: whiteColor,
+                      title: "Change"),
               const Divider(),
               20.heightBox,
               customTextField(
@@ -83,7 +102,9 @@ class EditProfile extends StatelessWidget {
                           color: redColor,
                           onPress: () async {
                             controller.isLoading(true);
-                            await controller.uploadProfileImg();
+                            if (controller.profilePath.value != "") {
+                              await controller.uploadProfileImg();
+                            }
                             await controller.updateProfile(
                               imgUrl: controller.profileImageLink.value,
                               name: controller.nameController.text,

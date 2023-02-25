@@ -1,16 +1,20 @@
 import 'dart:developer';
 
 import 'package:business_empire/screen/dashboard.dart';
+import 'package:business_empire/screen/wholesale/shop/controller/profile_controller.dart';
 import 'package:business_empire/utils/navigate_funtions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseAuthMethods {
   final FirebaseAuth _auth;
+
+  var controller = Get.put(() => ProfileController());
 
   FirebaseAuthMethods(this._auth);
 
@@ -59,9 +63,6 @@ class FirebaseAuthMethods {
 
         if (userCredential.user != null) {
           if (userCredential.additionalUserInfo!.isNewUser) {
-            // store information in firestore
-            // or do anything you want to do
-            // for new users
             addUserDetails();
           } else {
             // do something else for existing users
@@ -80,11 +81,16 @@ class FirebaseAuthMethods {
         .collection('users')
         .doc(currentUser.uid)
         .set({
-      'name': currentUser.displayName,
+      'id': currentUser.uid,
+      'name': '',
       'email': currentUser.email,
-      'phone': currentUser.phoneNumber,
-      'photo': currentUser.photoURL,
-      'uid': currentUser.uid,
+      'password': '',
+      'imageUrl': currentUser.photoURL,
+      "cart_count": "00",
+      "wishlist_count": "00",
+      "order_count": "00",
+      'createdAt': DateTime.now(),
+      'updatedAt': DateTime.now(),
     });
   }
 }

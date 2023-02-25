@@ -4,17 +4,21 @@ import 'package:business_empire/screen/bank/bank_screen.dart';
 import 'package:business_empire/screen/gold/gold.dart';
 import 'package:business_empire/screen/pot/pot.dart';
 import 'package:business_empire/screen/profile/profile_repo.dart';
+import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/widgets/bgwidget.dart';
+import 'package:business_empire/utils/firebase_consts.dart';
 import 'package:business_empire/utils/utils.dart';
 import 'package:business_empire/widgets/custom_drawer.dart';
 import 'package:business_empire/widgets/dialogue_box.dart';
 import 'package:business_empire/widgets/earning_container.dart';
 import 'package:business_empire/widgets/money_repository.dart';
 import 'package:business_empire/widgets/widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'wholesale/shop/services/firestore_sercices.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -168,13 +172,9 @@ class _HomePageState extends State<HomePage> {
 
   bool visibleRoundButton() {
     if (earnings.value > 10) {
-      setState(() {
-        isVisble = true;
-      });
+      isVisble = true;
     } else {
-      setState(() {
-        isVisble = false;
-      });
+      isVisble = false;
     }
     return isVisble;
   }
@@ -188,154 +188,176 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    getEarnings();
-    ProfileRepo().getUserName();
-    EarningsRepo.getTotalClick();
-    ProfileRepo().getCardDetails();
+    Future.delayed(const Duration(seconds: 3), () {
+      getEarnings();
+      ProfileRepo().getUserName();
+      EarningsRepo.getTotalClick();
+      ProfileRepo().getCardDetails();
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser!;
+    visibleRoundButton();
+
     final size = MediaQuery.of(context).size;
     return bgWidget(
       child: Scaffold(
         key: _key,
         // backgroundColor: lightGrey,
-        drawer: CustonDrawer(
-          profileImage: user!.photoURL!,
-          userName: user.displayName!,
-        ),
-        body: Stack(
-          children: [
-            Column(
-              children: const [
-                // Container(
-                //   width: size.width,
-                //   height: size.height * 0.35,
-                //   color: Colors.transparent,
-                // ),
-              ],
-            ),
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _key.currentState!.openDrawer();
-                      },
-                      icon: const Icon(
-                        LineIcons.bars,
-                        color: Colors.white,
+        drawer: const CustonDrawer(),
+        body: StreamBuilder(
+          stream: FireStoreServices.getUser(currentUser!.uid),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot?> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(redColor),
+                ),
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(redColor),
+              );
+            } else {
+              var data = snapshot.data!.docs[0];
+              return Stack(
+                children: [
+                  Column(
+                    children: const [
+                      // Container(
+                      //   width: size.width,
+                      //   height: size.height * 0.35,
+                      //   color: Colors.transparent,
+                      // ),
+                    ],
+                  ),
+                  SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              _key.currentState!.openDrawer();
+                            },
+                            icon: const Icon(
+                              LineIcons.bars,
+                              color: Colors.white,
+                            ),
+                          ),
+                          AppSize().width20,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data['name'] == ''
+                                    ? "Hello," ""
+                                    : 'Hello,${data['name']}',
+                                style: AppStyle.title,
+                              ),
+                              Text(
+                                AppFunctions.greetings(greeting),
+                                style: AppStyle.subtitle,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    AppSize().width20,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  Positioned(
+                    top: size.height * 0.15,
+                    left: size.width * 0.05,
+                    child: HomeContainer(
+                      size: size,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BankScreen()));
+                      },
+                      upiId: data[name] == ''
+                          ? 'Add Your Name'
+                          : data['name'] + '12345@upi',
+                    ),
+                  ),
+                  Positioned(
+                    top: size.height * 0.48,
+                    left: size.width * 0.1,
+                    child: Row(
                       children: [
-                        Text(
-                          'Hello,${user.displayName}',
-                          style: AppStyle.title,
+                        isVisble
+                            ? RoundButton(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return autoClickDialog(
+                                          context,
+                                          'Auto Click',
+                                          'Click on auto button to start earning',
+                                          Colors.green,
+                                          'Ok',
+                                          earnings.value,
+                                          _increamentCounterFor1000,
+                                          _increamentCounterFor2000,
+                                          _increamentCounterFor3000,
+                                        );
+                                      });
+                                },
+                                text: 'auto',
+                                icon: Icons.add,
+                                size: size,
+                              )
+                            : NonVisibleRoundButoon(
+                                size: size,
+                                text: 'auto',
+                                icon: Icons.add,
+                              ),
+                        AppSize().width20,
+                        RoundButton(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PotPage(
+                                          size: size,
+                                        )));
+                          },
+                          text: 'pots',
+                          icon: Icons.add,
+                          size: size,
                         ),
-                        Text(
-                          AppFunctions.greetings(greeting),
-                          style: AppStyle.subtitle,
+                        AppSize().width20,
+                        RoundButton(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => GoldPage(
+                                        size: size,
+                                      ))),
+                          text: 'Buy Gold',
+                          icon: Icons.add,
+                          size: size,
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: size.height * 0.15,
-              left: size.width * 0.05,
-              child: HomeContainer(
-                size: size,
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BankScreen()));
-                },
-                upiId: user.displayName!.substring(0, 6) + '12345@upi',
-              ),
-            ),
-            Positioned(
-              top: size.height * 0.48,
-              left: size.width * 0.1,
-              child: Row(
-                children: [
-                  visibleRoundButton()
-                      ? RoundButton(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return autoClickDialog(
-                                    context,
-                                    'Auto Click',
-                                    'Click on auto button to start earning',
-                                    Colors.green,
-                                    'Ok',
-                                    earnings.value,
-                                    _increamentCounterFor1000,
-                                    _increamentCounterFor2000,
-                                    _increamentCounterFor3000,
-                                  );
-                                });
-                          },
-                          text: 'auto',
-                          icon: Icons.add,
-                          size: size,
-                        )
-                      : NonVisibleRoundButoon(
-                          size: size,
-                          text: 'auto',
-                          icon: Icons.add,
-                        ),
-                  AppSize().width20,
-                  RoundButton(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PotPage(
-                                    size: size,
-                                  )));
-                    },
-                    text: 'pots',
-                    icon: Icons.add,
-                    size: size,
                   ),
-                  AppSize().width20,
-                  RoundButton(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GoldPage(
-                                  size: size,
-                                ))),
-                    text: 'Buy Gold',
-                    icon: Icons.add,
-                    size: size,
-                  ),
+                  Positioned(
+                      top: size.height * 0.60,
+                      left: size.width * 0.05,
+                      child: EarningContainer(
+                        size: size,
+                        onTap: _incrementCounter,
+                      ))
                 ],
-              ),
-            ),
-            Positioned(
-                top: size.height * 0.60,
-                left: size.width * 0.05,
-                child: EarningContainer(
-                  size: size,
-                  onTap: _incrementCounter,
-                ))
-          ],
+              );
+            }
+          },
         ),
       ),
     );
