@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                                 .pOnly(right: 8))
                         .onTap(() {
                       controllr.nameController.text = data['name'];
-                      controllr.passController.text = data['password'];
+
                       Get.to(() => EditProfile(data: data));
                     }),
                   ),

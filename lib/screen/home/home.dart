@@ -157,6 +157,7 @@ class _HomePageState extends State<HomePage> {
 
     if (earnings.value == 10) {
       showDialog(
+          barrierDismissible: false,
           context: context,
           builder: (context) {
             return infoDialogeBox(

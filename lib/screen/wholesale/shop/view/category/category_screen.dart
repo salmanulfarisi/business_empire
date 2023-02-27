@@ -1,3 +1,4 @@
+import 'package:business_empire/screen/wholesale/shop/controller/product_controller.dart';
 import 'package:business_empire/screen/wholesale/shop/view/category/category_details.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/lists.dart';
@@ -10,6 +11,7 @@ class CategoryHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
     return bgWidget(
       child: Scaffold(
         appBar: AppBar(
@@ -47,6 +49,7 @@ class CategoryHome extends StatelessWidget {
                   .outerShadowSm
                   .make()
                   .onTap(() {
+                controller.getSubCategories(categoriesList[index]);
                 Get.to(() => CategoryDetails(title: categoriesList[index]));
               });
             },

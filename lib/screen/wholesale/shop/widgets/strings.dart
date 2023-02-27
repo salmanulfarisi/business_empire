@@ -60,4 +60,6 @@ const video = "Videos",
 const logout = "Logout",
     wishlist = "My wishist",
     orders = "My Orders",
-    message = "Messages";
+    message = "Messages",
+    oldpass = "Old Password",
+    newpass = "New Password";
