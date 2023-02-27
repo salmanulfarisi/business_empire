@@ -63,3 +63,6 @@ const logout = "Logout",
     message = "Messages",
     oldpass = "Old Password",
     newpass = "New Password";
+
+// payment methods strings
+const paypal = "Paypal", stripe = "Stripe", cod = "Cash On Delivery";

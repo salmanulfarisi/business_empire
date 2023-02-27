@@ -44,13 +44,22 @@ class ProductController extends GetxController {
     totalPrice.value = price * quantity.value;
   }
 
-  addtoCart({title, img, sellername, color, qty, totalPrice, context}) async {
+  addtoCart(
+      {title,
+      img,
+      sellername,
+      color,
+      qty,
+      totalPrice,
+      context,
+      vendorId}) async {
     await firestore.collection(cartCollection).doc().set({
       'title': title,
       'img': img,
       'sellername': sellername,
       'color': color,
       'qty': qty,
+      'vendor_id': vendorId,
       'totalPrice': totalPrice,
       'addedby': currentUser!.uid,
     }).catchError((error) {

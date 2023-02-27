@@ -1,5 +1,6 @@
 import 'package:business_empire/screen/wholesale/shop/controller/cart_controllr.dart';
 import 'package:business_empire/screen/wholesale/shop/services/firestore_sercices.dart';
+import 'package:business_empire/screen/wholesale/shop/view/cart/shipping.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/our_button.dart';
 import 'package:business_empire/utils/firebase_consts.dart';
@@ -15,6 +16,17 @@ class CartScreen extends StatelessWidget {
     var controller = Get.put(CartController());
     return Scaffold(
         backgroundColor: lightGrey,
+        bottomNavigationBar: SizedBox(
+          width: context.screenWidth,
+          height: 60,
+          child: ourButton(
+              color: redColor,
+              onPress: () {
+                Get.to(() => const ShippingDetails());
+              },
+              textColor: whiteColor,
+              title: "Proceed to Shipping"),
+        ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: 'Shopping Cart'
@@ -39,6 +51,7 @@ class CartScreen extends StatelessWidget {
               } else {
                 var data = snapshot.data!.docs;
                 controller.calculate(data);
+                controller.productSnapshot = data;
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -48,8 +61,11 @@ class CartScreen extends StatelessWidget {
                               itemCount: data.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
-                                    leading:
-                                        Image.network("${data[index]['img']}"),
+                                    leading: Image.network(
+                                      "${data[index]['img']}",
+                                      width: 80,
+                                      fit: BoxFit.cover,
+                                    ),
                                     title:
                                         "${data[index]['title']} x${data[index]['qty']}"
                                             .text
@@ -96,14 +112,14 @@ class CartScreen extends StatelessWidget {
                           .roundedSM
                           .make(),
                       10.heightBox,
-                      SizedBox(
-                        width: context.screenWidth - 60,
-                        child: ourButton(
-                            color: redColor,
-                            onPress: () {},
-                            textColor: whiteColor,
-                            title: "Proceed to Shipping"),
-                      )
+                      // SizedBox(
+                      //   width: context.screenWidth - 60,
+                      //   child: ourButton(
+                      //       color: redColor,
+                      //       onPress: () {},
+                      //       textColor: whiteColor,
+                      //       title: "Proceed to Shipping"),
+                      // )
                     ],
                   ),
                 );
