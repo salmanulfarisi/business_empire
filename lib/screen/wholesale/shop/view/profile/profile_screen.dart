@@ -1,6 +1,9 @@
 import 'package:business_empire/screen/wholesale/shop/controller/profile_controller.dart';
 import 'package:business_empire/screen/wholesale/shop/services/firestore_sercices.dart';
+import 'package:business_empire/screen/wholesale/shop/view/chat_screen/message_screen.dart';
+import 'package:business_empire/screen/wholesale/shop/view/order_screen/order_screen.dart';
 import 'package:business_empire/screen/wholesale/shop/view/profile/edit_profile.dart';
+import 'package:business_empire/screen/wholesale/shop/view/wishlist_screen/wishlist_screen.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/details_card.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/lists.dart';
@@ -138,6 +141,21 @@ class ProfileScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListTile(
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              Get.to(() => const OrderScren());
+
+                              break;
+                            case 1:
+                              Get.to(() => const WishlistScreen());
+                              break;
+                            case 2:
+                              Get.to(() => const MessagesScreen());
+                              break;
+                            default:
+                          }
+                        },
                         leading: Image.asset(
                           profileButtonIconList[index],
                           width: 22,

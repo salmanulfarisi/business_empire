@@ -3,8 +3,8 @@ import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class MessagesScreen extends StatelessWidget {
-  const MessagesScreen({Key? key}) : super(key: key);
+class WishlistScreen extends StatelessWidget {
+  const WishlistScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,10 @@ class MessagesScreen extends StatelessWidget {
       backgroundColor: whiteColor,
       appBar: AppBar(
         title:
-            "My Messages".text.color(darkFontGrey).fontFamily(semibold).make(),
+            "My Wishlist".text.color(darkFontGrey).fontFamily(semibold).make(),
       ),
       body: StreamBuilder(
-        stream: FireStoreServices.getAllMessages(),
+        stream: FireStoreServices.getWishlist(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -24,7 +24,7 @@ class MessagesScreen extends StatelessWidget {
               ),
             );
           } else if (snapshot.data!.docs.isEmpty) {
-            return "No Messages Yet".text.color(darkFontGrey).makeCentered();
+            return "No Orders Yet".text.color(darkFontGrey).makeCentered();
           } else {
             return Container();
           }
