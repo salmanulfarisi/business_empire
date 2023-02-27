@@ -61,5 +61,5 @@ class ProductController extends GetxController {
     totalPrice.value = 0;
   }
 
-  addTo
+  addToWishList() async {}
 }
