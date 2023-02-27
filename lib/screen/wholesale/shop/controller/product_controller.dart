@@ -60,4 +60,6 @@ class ProductController extends GetxController {
     colorIndex.value = 0;
     totalPrice.value = 0;
   }
+
+  addTo
 }
