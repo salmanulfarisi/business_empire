@@ -1,4 +1,5 @@
 import 'package:business_empire/screen/wholesale/shop/controller/product_controller.dart';
+import 'package:business_empire/screen/wholesale/shop/view/chat_screen/chat_screen.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/lists.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/our_button.dart';
@@ -112,7 +113,12 @@ class ItemDetails extends StatelessWidget {
                               Icons.message_rounded,
                               color: darkFontGrey,
                             ),
-                          )
+                          ).onTap(() {
+                            Get.to(() => const ChatScreen(), arguments: [
+                              data['p_seller'],
+                              data['vendor_id']
+                            ]);
+                          })
                         ],
                       )
                           .box
