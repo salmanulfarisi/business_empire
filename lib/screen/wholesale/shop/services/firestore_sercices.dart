@@ -16,4 +16,17 @@ class FireStoreServices {
         .where('p_category', isEqualTo: category)
         .snapshots();
   }
+
+  // get cart
+  static getCart(uid) {
+    return firestore
+        .collection(cartCollection)
+        .where('addedby', isEqualTo: uid)
+        .snapshots();
+  }
+
+  // delete document
+  static deleteDocument(docId) {
+    return firestore.collection(cartCollection).doc(docId).delete();
+  }
 }
