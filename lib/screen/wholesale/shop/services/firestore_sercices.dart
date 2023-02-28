@@ -96,4 +96,19 @@ class FireStoreServices {
   static allProducts() {
     return firestore.collection(productCollection).snapshots();
   }
+
+  // get featured
+  static getFeaturedProducts() {
+    return firestore
+        .collection(productCollection)
+        .where('isFeatured', isEqualTo: true)
+        .get();
+  }
+
+  static searchProduct(title) {
+    return firestore
+        .collection(productCollection)
+        // .where('p_name', isLessThanOrEqualTo: title)
+        .get();
+  }
 }

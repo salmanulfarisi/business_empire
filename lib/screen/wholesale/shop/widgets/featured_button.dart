@@ -1,5 +1,7 @@
+import 'package:business_empire/screen/wholesale/shop/view/category/category_details.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Widget featuredButton({String? title, icon}) {
   return Row(
@@ -20,5 +22,8 @@ Widget featuredButton({String? title, icon}) {
       .padding(const EdgeInsets.all(4))
       .roundedSM
       .outerShadowSm
-      .make();
+      .make()
+      .onTap(() {
+    Get.to(() => CategoryDetails(title: title));
+  });
 }
