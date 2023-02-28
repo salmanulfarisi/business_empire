@@ -146,7 +146,7 @@ class CustonDrawer extends StatelessWidget {
                   ),
                   title: const Text("Sellet App"),
                   onTap: () {
-                    NavigateFunctions.pushPage(context, const SellerApp());
+                    NavigateFunctions.pushPage(context, const SellerAppLogin());
                   },
                 ),
                 ListTile(

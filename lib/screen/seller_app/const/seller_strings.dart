@@ -1,8 +1,14 @@
-const appname = "eMart Seller App",
+const appname = "Bussiness Empaire Seller App",
     login = "Login",
     welcome = "Hi, Welcome to",
     email = "Email",
+    emailHint = "Enter your email",
     password = "Password",
-    forgotPassword = "Forgot Password",
+    passwordHint = "Enter your password",
+    forgotPassword = "Forgot Password?",
     anyProblem = "In case of any difficulty, contact administration",
-    credit = "@BaabaDevs";
+    credit = "@Salman",
+    dashBoard = "Dashboard",
+    orders = "Orders",
+    products = "Products",
+    settings = "Settings";
