@@ -9,5 +9,5 @@ Widget buttonWidget({title, color = purpleColor, onPress}) {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0))),
       onPressed: onPress,
-      child: normalText(text: title, size: 16.0));
+      child: normalText(text: "$title", size: 16.0));
 }

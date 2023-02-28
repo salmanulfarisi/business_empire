@@ -20,6 +20,9 @@ const appname = "Bussiness Empaire Seller App",
     delete = "Delete",
     remove = "Remove",
     logout = 'Logout',
+    save = 'save',
+    name = 'Username',
+    confirmPass = "Confirm Password",
     settings = "Settings";
 
 // shop settings strings
@@ -35,5 +38,5 @@ const shopSettings = 'Shop Settings',
     description = 'Description',
     mobile = 'Shop Mobile',
     website = 'Shop Website',
-    name = 'Shop Name',
+    shopName = 'Shop Name',
     address = 'Shop Address';

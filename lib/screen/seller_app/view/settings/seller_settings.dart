@@ -1,5 +1,7 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
+import 'package:business_empire/screen/seller_app/view/settings/edit_profile.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
+import 'package:get/get.dart';
 
 class SellerSettings extends StatelessWidget {
   const SellerSettings({Key? key}) : super(key: key);
@@ -12,7 +14,11 @@ class SellerSettings extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: boldText(text: settings, size: 16.0),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+          IconButton(
+              onPressed: () {
+                Get.to(() => const EditProfileScreen());
+              },
+              icon: const Icon(Icons.edit)),
           TextButton(onPressed: () {}, child: normalText(text: logout))
         ],
       ),
