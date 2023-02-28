@@ -19,4 +19,21 @@ const appname = "Bussiness Empaire Seller App",
     edit = "Edit",
     delete = "Delete",
     remove = "Remove",
+    logout = 'Logout',
     settings = "Settings";
+
+// shop settings strings
+const shopSettings = 'Shop Settings',
+    changeImage = 'Change Images',
+    messages = "Messages",
+    editProfile = 'Edit Profile',
+    nameHint = 'Salman',
+    shopDescHint = 'Enter your Shop description',
+    shopWebsiteHint = 'eg. vendor.emart.com',
+    shopMobileHint = 'eg. 8590278752',
+    shopAddressHint = 'eg. Near Railway',
+    description = 'Description',
+    mobile = 'Shop Mobile',
+    website = 'Shop Website',
+    name = 'Shop Name',
+    address = 'Shop Address';
