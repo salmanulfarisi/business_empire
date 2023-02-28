@@ -1,4 +1,5 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
+import 'package:business_empire/screen/seller_app/view/products/seller_addnew_product.dart';
 import 'package:business_empire/screen/seller_app/view/products/seller_product_details.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/appbar_widget.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
@@ -11,7 +12,9 @@ class SellerProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(() => const SellerAddNewProduct());
+        },
         backgroundColor: purpleColor,
         child: const Icon(Icons.add),
       ),
