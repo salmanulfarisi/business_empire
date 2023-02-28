@@ -39,6 +39,15 @@ class SellerProductDetails extends StatelessWidget {
                   // title!.text.size(16).fontFamily(semibold).make(),
                   // rating
                   10.heightBox,
+                  Row(
+                    children: [
+                      boldText(text: 'Category', size: 16.0),
+                      10.widthBox,
+                      normalText(text: 'subcatergory')
+                    ],
+                  ),
+                  10.heightBox,
+
                   VxRating(
                     isSelectable: false,
                     value: 3.0,

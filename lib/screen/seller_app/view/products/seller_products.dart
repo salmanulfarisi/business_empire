@@ -39,7 +39,13 @@ class SellerProducts extends StatelessWidget {
                         ),
                         title: boldText(
                             text: 'Product Name', size: 16.0, color: fontGrey),
-                        subtitle: normalText(text: "\$40.0", color: darkGrey),
+                        subtitle: Row(
+                          children: [
+                            normalText(text: "\$40.0", color: darkGrey),
+                            10.widthBox,
+                            boldText(text: 'Featured', color: green)
+                          ],
+                        ),
                         trailing: VxPopupMenu(
                           showArrow: false,
                           child: const Icon(Icons.more_vert_rounded),
