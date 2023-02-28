@@ -11,4 +11,7 @@ const appname = "Bussiness Empaire Seller App",
     dashBoard = "Dashboard",
     orders = "Orders",
     products = "Products",
+    rating = "Rating",
+    totalSales = "Total Sales",
+    popular = 'Popular products',
     settings = "Settings";

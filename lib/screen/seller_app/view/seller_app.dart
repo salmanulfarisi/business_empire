@@ -10,6 +10,7 @@ class SellerAppLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: purpleColor,
         body: SafeArea(
           child: Padding(
@@ -41,6 +42,8 @@ class SellerAppLogin extends StatelessWidget {
                   children: [
                     TextFormField(
                       decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: textfieldGrey,
                         label: Text(email),
                         hintText: emailHint,
                         border: InputBorder.none,
@@ -53,6 +56,8 @@ class SellerAppLogin extends StatelessWidget {
                     10.heightBox,
                     TextFormField(
                       decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: textfieldGrey,
                         label: Text(password),
                         hintText: passwordHint,
                         border: InputBorder.none,
