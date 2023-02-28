@@ -128,7 +128,7 @@ class OrderDetails extends StatelessWidget {
                           children: [
                             orderPlaced(
                                 title1: data['orders'][index]['title'],
-                                title2: data['orders'][index]['total_amount'],
+                                title2: data['orders'][index]['totalPrice'],
                                 d1: "${data['orders'][index]['qty']} x",
                                 d2: "Refundable"),
                             Padding(
