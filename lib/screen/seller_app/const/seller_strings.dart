@@ -14,4 +14,5 @@ const appname = "Bussiness Empaire Seller App",
     rating = "Rating",
     totalSales = "Total Sales",
     popular = 'Popular products',
+    unpaid = "Unpaid",
     settings = "Settings";

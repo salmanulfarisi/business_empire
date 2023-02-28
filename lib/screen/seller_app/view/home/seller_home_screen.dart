@@ -1,7 +1,7 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
+import 'package:business_empire/screen/seller_app/view/widgets/appbar_widget.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/dashboard_button.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
-import 'package:intl/intl.dart' as intl;
 
 class SellerHome extends StatelessWidget {
   const SellerHome({Key? key}) : super(key: key);
@@ -9,19 +9,7 @@ class SellerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: boldText(text: dashBoard, color: fontGrey, size: 16.0),
-        actions: [
-          Center(
-            child: normalText(
-                text: intl.DateFormat('EEE,MMM d,' 'yy').format(DateTime.now()),
-                color: darkGrey,
-                size: 16.0),
-          ),
-          10.widthBox,
-        ],
-      ),
+      appBar: customappbarWidget(dashBoard),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

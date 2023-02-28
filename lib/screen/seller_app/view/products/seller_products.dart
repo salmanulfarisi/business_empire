@@ -1,6 +1,6 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
+import 'package:business_empire/screen/seller_app/view/widgets/appbar_widget.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
-import 'package:intl/intl.dart' as intl;
 
 class SellerProducts extends StatelessWidget {
   const SellerProducts({Key? key}) : super(key: key);
@@ -13,19 +13,7 @@ class SellerProducts extends StatelessWidget {
         backgroundColor: purpleColor,
         child: const Icon(Icons.add),
       ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: boldText(text: products, color: fontGrey, size: 16.0),
-        actions: [
-          Center(
-            child: normalText(
-                text: intl.DateFormat('EEE,MMM d,' 'yy').format(DateTime.now()),
-                color: darkGrey,
-                size: 16.0),
-          ),
-          10.widthBox,
-        ],
-      ),
+      appBar: customappbarWidget(products),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
