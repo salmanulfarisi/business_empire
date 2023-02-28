@@ -1,4 +1,5 @@
 import 'package:business_empire/screen/onboarding.dart';
+import 'package:business_empire/screen/seller_app/view/seller_app.dart';
 import 'package:business_empire/screen/wholesale/shop/controller/profile_controller.dart';
 import 'package:business_empire/screen/wholesale/shop/services/firestore_sercices.dart';
 import 'package:business_empire/screen/wholesale/shop/widgets/consts.dart';
@@ -136,6 +137,16 @@ class CustonDrawer extends StatelessWidget {
                   title: const Text("WholeSale Bussiness"),
                   onTap: () {
                     NavigateFunctions.pushPage(context, const WholeSaleBuss());
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    LineIcons.shoppingBasket,
+                    color: Colors.black54,
+                  ),
+                  title: const Text("Sellet App"),
+                  onTap: () {
+                    NavigateFunctions.pushPage(context, const SellerApp());
                   },
                 ),
                 ListTile(
