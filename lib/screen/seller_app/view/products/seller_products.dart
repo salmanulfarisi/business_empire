@@ -1,6 +1,8 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
+import 'package:business_empire/screen/seller_app/view/products/seller_product_details.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/appbar_widget.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
+import 'package:get/get.dart';
 
 class SellerProducts extends StatelessWidget {
   const SellerProducts({Key? key}) : super(key: key);
@@ -23,7 +25,9 @@ class SellerProducts extends StatelessWidget {
                 20,
                 (index) => Card(
                       child: ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => const SellerProductDetails());
+                        },
                         leading: Image.asset(
                           imgProduct,
                           width: 100,
