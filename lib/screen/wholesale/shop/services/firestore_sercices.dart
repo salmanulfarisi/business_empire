@@ -111,4 +111,11 @@ class FireStoreServices {
         // .where('p_name', isLessThanOrEqualTo: title)
         .get();
   }
+
+  static getSubCategoryProducts(title) {
+    return firestore
+        .collection(productCollection)
+        .where('p_subcategory', isEqualTo: title)
+        .snapshots();
+  }
 }

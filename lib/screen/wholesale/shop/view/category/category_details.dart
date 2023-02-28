@@ -7,63 +7,88 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CategoryDetails extends StatelessWidget {
+class CategoryDetails extends StatefulWidget {
   final String? title;
   const CategoryDetails({Key? key, required this.title}) : super(key: key);
 
   @override
+  State<CategoryDetails> createState() => _CategoryDetailsState();
+}
+
+class _CategoryDetailsState extends State<CategoryDetails> {
+  var controller = Get.put(ProductController());
+  dynamic productMethod;
+  @override
+  void initState() {
+    super.initState();
+    switchCategory(widget.title);
+  }
+
+  switchCategory(title) {
+    if (controller.subcat.contains(title)) {
+      productMethod = FireStoreServices.getSubCategoryProducts(title);
+    } else {
+      productMethod = FireStoreServices.getProducts(title);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var controller = Get.put(ProductController());
     return bgWidget(
       child: Scaffold(
           appBar: AppBar(
-            title: title!.text.fontFamily(bold).white.make(),
+            title: widget.title!.text.fontFamily(bold).white.make(),
           ),
-          body: StreamBuilder(
-            stream: FireStoreServices.getProducts(title),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(
-                    child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(redColor),
-                ));
-              } else if (snapshot.data!.docs.isEmpty) {
-                return Center(
-                    child: "No Products Found"
-                        .text
-                        .color(darkFontGrey)
-                        .makeCentered());
-              } else {
-                var data = snapshot.data!.docs;
-                return Container(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        child: Row(
-                          children: List.generate(
-                              controller.subcat.length,
-                              (index) => "${controller.subcat[index]}"
-                                  .text
-                                  .size(12)
-                                  .fontFamily(semibold)
-                                  .color(darkFontGrey)
-                                  .makeCentered()
-                                  .box
-                                  .gray300
-                                  .rounded
-                                  .size(150, 60)
-                                  .margin(
-                                      const EdgeInsets.symmetric(horizontal: 4))
-                                  .make()),
-                        ),
-                      ),
-
-                      // items container
-                      20.heightBox,
-                      Expanded(
+          body: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  child: Row(
+                    children: List.generate(
+                        controller.subcat.length,
+                        (index) => "${controller.subcat[index]}"
+                                .text
+                                .size(12)
+                                .fontFamily(semibold)
+                                .color(darkFontGrey)
+                                .makeCentered()
+                                .box
+                                .gray300
+                                .rounded
+                                .size(120, 50)
+                                .margin(
+                                    const EdgeInsets.symmetric(horizontal: 4))
+                                .make()
+                                .onTap(() {
+                              switchCategory("${controller.subcat[index]}");
+                              setState(() {});
+                            })),
+                  ),
+                ),
+                20.heightBox,
+                StreamBuilder(
+                  stream: productMethod,
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Expanded(
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(redColor),
+                        )),
+                      );
+                    } else if (snapshot.data!.docs.isEmpty) {
+                      return Expanded(
+                          child: "No Products Found"
+                              .text
+                              .color(darkFontGrey)
+                              .makeCentered());
+                    } else {
+                      var data = snapshot.data!.docs;
+                      return Expanded(
                         child: GridView.builder(
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
@@ -116,12 +141,12 @@ class CategoryDetails extends StatelessWidget {
                             });
                           },
                         ),
-                      )
-                    ],
-                  ),
-                );
-              }
-            },
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           )),
     );
   }
