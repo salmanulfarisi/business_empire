@@ -118,23 +118,38 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   20.heightBox,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      detailsCard(
-                          width: context.screenWidth / 3.4,
-                          count: "${data['cart_count']}",
-                          title: "In your Cart"),
-                      detailsCard(
-                          width: context.screenWidth / 3.4,
-                          count: "${data['wishlist_count']}",
-                          title: "In your Wishlist"),
-                      detailsCard(
-                          width: context.screenWidth / 3.4,
-                          count: "${data['order_count']}",
-                          title: "Your Orders"),
-                    ],
+                  FutureBuilder(
+                    future: FireStoreServices.getCounts(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(redColor),
+                          ),
+                        );
+                      } else {
+                        var countData = snapshot.data;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            detailsCard(
+                                width: context.screenWidth / 3.4,
+                                count: "${countData[0]}",
+                                title: "In your Cart"),
+                            detailsCard(
+                                width: context.screenWidth / 3.4,
+                                count: "${countData[1]}",
+                                title: "In your Wishlist"),
+                            detailsCard(
+                                width: context.screenWidth / 3.4,
+                                count: "${countData[2]}",
+                                title: "Your Orders"),
+                          ],
+                        );
+                      }
+                    },
                   ),
+
                   10.heightBox,
                   // profile button list
                   ListView.separated(
