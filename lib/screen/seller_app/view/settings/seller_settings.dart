@@ -1,4 +1,5 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
+import 'package:business_empire/screen/seller_app/view/messages/messages_screen.dart';
 import 'package:business_empire/screen/seller_app/view/settings/edit_profile.dart';
 import 'package:business_empire/screen/seller_app/view/settings/seller_shop_settings.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
@@ -46,6 +47,9 @@ class SellerSettings extends StatelessWidget {
                           switch (index) {
                             case 0:
                               Get.to(() => const ShopSettings());
+                              break;
+                            case 1:
+                              Get.to(() => const SellerMessagesScreen());
                               break;
                             default:
                           }

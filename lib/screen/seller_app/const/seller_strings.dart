@@ -22,6 +22,7 @@ const appname = "Bussiness Empaire Seller App",
     logout = 'Logout',
     save = 'save',
     name = 'Username',
+    chat = 'Chats',
     confirmPass = "Confirm Password",
     settings = "Settings";
 
