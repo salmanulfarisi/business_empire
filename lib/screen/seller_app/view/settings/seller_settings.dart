@@ -1,5 +1,6 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
 import 'package:business_empire/screen/seller_app/view/settings/edit_profile.dart';
+import 'package:business_empire/screen/seller_app/view/settings/seller_shop_settings.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
 import 'package:get/get.dart';
 
@@ -41,6 +42,14 @@ class SellerSettings extends StatelessWidget {
               children: List.generate(
                   profileButtonsIcon.length,
                   (index) => ListTile(
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              Get.to(() => const ShopSettings());
+                              break;
+                            default:
+                          }
+                        },
                         leading: Icon(
                           profileButtonsIcon[index],
                           color: white,
