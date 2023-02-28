@@ -1,6 +1,8 @@
 import 'package:business_empire/screen/seller_app/const/seller_const.dart';
+import 'package:business_empire/screen/seller_app/view/orders/seller_orderdeatails.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/appBar_widget.dart';
 import 'package:business_empire/screen/seller_app/view/widgets/text_style.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
 class SellerOrder extends StatelessWidget {
@@ -18,7 +20,9 @@ class SellerOrder extends StatelessWidget {
             children: List.generate(
               20,
               (index) => ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const SellerOrderDetailsScreen());
+                },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
